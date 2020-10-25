@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: aee9a900f93766b468a5f137410095e2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - currentField: {instanceID: 0}
+  - Shell: {fileID: 11400000, guid: 5c3abce8d2fff554db4a0447c6cf2ad9, type: 2}
+  - Effect: {fileID: 5862777961688022647, guid: a4c288143aafc684b985877c0e9e30d5,
+      type: 3}
+  - terrainbase: {fileID: 11400000, guid: e37d8cf4e625f0b4a930c37f2d13b4ae, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
