@@ -42,8 +42,4 @@ public class TilemapsManager : MonoBehaviour
         TilemapEffects = GameObject.Find("Grid/effects").GetComponent<Tilemap>();
     }
 
-    void Update()
-    {
-        
-    }
 }

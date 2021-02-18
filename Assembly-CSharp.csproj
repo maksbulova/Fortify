@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{B45A8F16-5FD7-B96C-4EC0-49524D033EB4}</ProjectGuid>
+    <ProjectGuid>{7D47FE5C-A809-0E9A-F82E-246810B7DED3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Object.cs" />
     <Compile Include="Assets\Scripts\TerrainTile.cs" />
     <Compile Include="Assets\Scripts\NPCsManager.cs" />
+    <Compile Include="Assets\Scripts\TurnSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -685,11 +686,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.2D.Tilemap.Extras.Editor.csproj">
-      <Project>{F05FF439-5F32-E1D7-FEE5-723EEBF5F863}</Project>
+      <Project>{2B52F9CB-FF49-D199-F2D5-476C6F72F7BC}</Project>
       <Name>Unity.2D.Tilemap.Extras.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Tilemap.Extras.csproj">
-      <Project>{F05AB603-AE4F-00BA-D9C0-A45143AEDE6F}</Project>
+      <Project>{20C69464-696E-A4CF-D7CA-3AF08459B145}</Project>
       <Name>Unity.2D.Tilemap.Extras</Name>
     </ProjectReference>
   </ItemGroup>

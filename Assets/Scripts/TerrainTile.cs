@@ -5,7 +5,7 @@ using UnityEngine;
 public class TerrainTile : MonoBehaviour
 {
     [Tooltip("чем выше тем сложнее попасть")]
-    public int protection;
+    public int cover;
     [Tooltip("чем выше тем легче выбраться")]
     public int mobility;
 

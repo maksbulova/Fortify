@@ -6,139 +6,168 @@ using UnityEngine.Tilemaps;
 public class Unit : Object
 {
     [Header("Параметры юнита")]
-    [Tooltip("здоровье и урон")]
-    [Range(1, 10)]
+    [Tooltip("здоровье"), Range(1, 10)]
     public int health;
-    [Tooltip("снижает входящий урон")]
-    [Range(0, 10)]
-    public int armor;
-    [Tooltip("чем выше тем сложнее попасть")]
-    [Range(-10, 10)]
-    public int dodge;
-    [Tooltip("чем выше тем вероятнее выбраться")]
-    [Range(-10, 10)]
+    // public int armor; TODO
+    [Tooltip("чем выше тем сложнее попасть"), Range(-10, 10)]
+    public int cover;
+    [Tooltip("чем выше тем вероятнее выбраться"), Range(-10, 10)]
     public int mobility;
+    [Tooltip("сколько тайлов пройдено за ход"), Range(1, 5)]
+    public int speed;
+    [Tooltip("урон за каждого соладта (хп) в отряде"), Range(1, 5)]
+    public float meleeDmg;
 
-
+    [Space, Header("Технические детали")]
+    private float supression = 0;
     [Tooltip("скорость анимации ходьбы")]
-    private float speed = 4;
-
+    private float animSpeed = 4;
     [Space]
     public ParticleSystem Effect; // черновик
 
 
 
-    public bool Unstack(int mobility)
+
+    private int RateField(TerrainTile tile)    // оценка тайла
     {
-        int rnd = Random.Range(1, 7);
+        int Rate = 1; // дефолтный тайл лучше занятого
 
-        return (rnd + this.mobility + currentField.mobility > 3) ? true : false;    // чем больше тем вероятнее выбраться
-    }
-
-
-    public void Movement()  // TODO мразотно сделано, переделай, хотя-бы связь тайла к оценке
-    {
-        List<TerrainTile> ways = new List<TerrainTile>();   // тайлы нижней полусферы 
-
-
-
-        ways.Add(GetTerrain(gameObject.transform.position + -upright));
-        ways.Add(GetTerrain(gameObject.transform.position + -up));
-        ways.Add(GetTerrain(gameObject.transform.position + -upleft));
-
-
-        List<int> weight = new List<int>(3);
-
-        int weightSum = 0;
-        for (int i = 0; i < ways.Count; i++)
-        {
-            weight.Add(RateField(ways[i]));
-            weightSum += weight[i];
-        }
-        // а еще нет приоритета к движению по прямой
-        // TODO и кейс если нет доступных путей
-
-        TerrainTile tileToMove;
-        int rnd = Random.Range(0, weightSum+1);
-        if (rnd < weight[0])
-        {
-            tileToMove = ways[0];
-        }
-        else if (rnd < weight[0] + weight[1])
-        {
-            tileToMove = ways[1];
-        }
-        else
-        {
-            tileToMove = ways[2];
-        }
-
-        Detach();
-        Attach(tileToMove);
-        StartCoroutine(Move(tileToMove.transform.position));
-        // transform.position = new Vector3(moveToTile.gameObject.transform.position.x, moveToTile.gameObject.transform.position.y - 0.01f, transform.position.z); // TODO анимацию плавного движения, и косыль с -0,1ф из-за всратого рендера 
-
-        
-    }
-
-    private IEnumerator Move(Vector3 pos)
-    {
-        // transform.position = new Vector3(moveToTile.gameObject.transform.position.x, moveToTile.gameObject.transform.position.y - 0.01f, transform.position.z); // TODO анимацию плавного движения, и косыль с -0,1ф из-за всратого рендера 
-        GetComponent<SpriteRenderer>().sortingLayerName = "units";
-        
-        Vector3 dir;
-        pos.z = 0;
-
-        while((pos - transform.position).magnitude > 0.01f)
-        {
-            dir = (pos - transform.position) * speed;
-            dir.z = 0;
-            transform.Translate(dir * Time.deltaTime);
-            yield return new WaitForFixedUpdate();
-        }
-        transform.position = pos - Vector3.up * 0.01f;
-        GetComponent<SpriteRenderer>().sortingLayerName = "terrain";
-    }
-
-
-    public void Pin()
-    {
-        // TODO
-    }
-    
-    private void Act()
-    {
-        if (Unstack(this.mobility + currentField.mobility))
-        {
-            Movement();
-        }
-        else
-        {
-            Pin();
-        }
-    }
-
-
-    private int RateField(TerrainTile tile)     // занятый тайл оценивает нулем!!
-    {
-        int Rate = 1;
-
-        if (tile.currentUnit != null)
+        if (tile.currentUnit != null)   // занятый тайл оценивает нулем
         {
             Rate = 0;
         }
         else if (tile.currentStructure != null)
         {
-            Rate = 20;
+            Rate += 5;
         }
         else
         {
-            Rate += tile.protection*2 + mobility;
+            Rate += tile.cover * 2 + mobility;
         }
-        
+
         return Rate;
     }
 
+
+    private void Movement()  //  TODO можно оптимизироваь, например не рассматривать занятые тайлы, сразу атаковать структуры
+        // проверка на проходимость, выбор пути, перемещение
+    {
+        if (Check(modifier: this.mobility + currentTile.mobility, basic: 8))  // успешная проврка - выбраться
+        {
+            // Debug.Log("выбрался");
+
+            StopCoroutine("MoveTo");
+
+            transform.position = currentTile.transform.position + Vector3.back; // фикс бага при слишком частой ходьбе
+
+            List<TerrainTile> ways = new List<TerrainTile>();   // тайлы нижней полусферы 
+
+            ways.Add(GetTerrain(gameObject.transform.position + downleft));
+            ways.Add(GetTerrain(gameObject.transform.position + down));
+            ways.Add(GetTerrain(gameObject.transform.position + downright));
+
+            List<int> weights = new List<int>(3); 
+
+            int weightSum = 0;
+
+            for (int i = 0; i < ways.Count; i++)
+            {
+                weights.Add(RateField(ways[i]));
+                weightSum += weights[i];
+            }
+
+            if (weights[1] > 0)
+            {
+                weights[1] += 2;  // приоритет к движению по прямой
+                weightSum += 2;
+            }
+
+            if (weightSum == 0) // если нет доступных путей
+            {
+                supression += 1;
+            }
+            else
+            {
+                TerrainTile tileToMove;
+                int rnd = Random.Range(0, weightSum);
+                if (rnd < weights[0])
+                {
+                    tileToMove = ways[0];
+                }
+                else if (rnd < weights[0] + weights[1])
+                {
+                    tileToMove = ways[1];
+                }
+                else
+                {
+                    tileToMove = ways[2];
+                }
+
+                if (tileToMove.currentStructure != null)
+                {
+                    MeleeCharge(tileToMove);
+                }
+                else
+                {
+                    StartCoroutine(MoveTo(tileToMove));
+                }
+            }
+
+        }
+        else
+        {
+            // Debug.Log("застрял");
+        }
+
+    }
+
+    private IEnumerator MoveTo(TerrainTile tile)
+    {
+        transform.position = currentTile.transform.position + Vector3.back;
+
+        Vector3 pos = tile.transform.position + Vector3.back;
+
+        Detach();
+        Attach(tile);
+
+        GetComponent<SpriteRenderer>().sortingLayerName = "units";
+        
+        Vector3 dir;
+
+        while((pos - this.transform.position).magnitude > 0.01f)
+        {
+            dir = (pos - this.transform.position) * animSpeed;
+            transform.Translate(dir * Time.deltaTime);
+            yield return new WaitForFixedUpdate();
+        }
+
+        transform.position = pos + Vector3.down * 0.001f; // полукостыль для рендера поверх терейна
+        GetComponent<SpriteRenderer>().sortingLayerName = "terrain";
+
+
+    }
+
+    
+    private void MeleeCharge(TerrainTile tile) // ход на клетку со структурой, нужен чтобы два юнита могли атаковать одну структуру, но не ходили на одно поле
+    {
+        Structure structure = tile.currentStructure;
+
+        int dmgToDef = Mathf.FloorToInt(this.health * this.meleeDmg);
+        int dmgToAtt = Mathf.FloorToInt(structure.health * structure.meleeDmg);
+
+        if (this.health > dmgToAtt) // выживет 
+        {
+            structure.takeDamage(dmgToDef);
+            this.takeDamage(dmgToAtt);
+            StartCoroutine(MoveTo(tile));
+        }
+        else  // не выживет, тоже нанесет урон и может уничтожить защитника, но оставит дорогу другому юниту для атаки
+        {
+            structure.takeDamage(dmgToDef);
+            this.takeDamage(dmgToAtt);
+        }
+    }
+    
 
     void Start()
     {
@@ -149,34 +178,35 @@ public class Unit : Object
         NPCsManager.attackTeam.Add(this);
     }
 
-    IEnumerator delayedStart()
-    {
-        yield return new WaitForSeconds(0.1f);
-        Attach();
-    }
-
-    public void takeDamage(int dmg)
+    public void takeHit(int dmg, float supres, int accuracy)//, int penetration)
     {
         // Debug.Log("hit");
 
-        if (dmg > this.armor)
-        {
-            this.health -= dmg - armor;
-        }
-
         Instantiate(Effect, transform.position, Quaternion.identity);
 
-        // TODO бронебойность, и эффект для непробил
-        if (health <= 0)
+        if (Check(modifier: +accuracy -currentTile.cover)) // успех проверки - попадание
         {
-            Death();
+            // TODO чек на броню
+            takeDamage(dmg);
+
         }
+        this.supression += supres; // интересно оно вызовет ошибку раз при смерти эта штука вызывается после дестроя?
+    }
+    public override void takeDamage(int dmg)
+    {
+        health -= dmg;
+
+        if (health <= 0)
+            Death();
     }
 
-    public override void Death()
+    protected override void Death()
     {
         NPCsManager.attackTeam.Remove(this);
-        base.Death();
+
+        Detach();
+        Destroy(gameObject);
+
     }
 
     private void OnMouseDown()
@@ -186,8 +216,18 @@ public class Unit : Object
 
     public override void NpcAct()
     {
+        StartCoroutine(delayedAct());
+        // Movement();
+
+        //TODO сюда добавить потом стрельбу юнита по структурам
+    }
+
+    private IEnumerator delayedAct() // не костыль, но можно как-то более органично имплементировать в другой код
+    // что чинит: NCPsManager обращается последовательно ко всем юнитам. Без этого кода юниты начали бы действовать 
+    // сразу, и в случае смерти меняли список по которому идет менеджер
+    {
+        yield return new WaitForFixedUpdate();
         Movement();
     }
 
-    
 }

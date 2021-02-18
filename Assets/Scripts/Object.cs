@@ -3,28 +3,71 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Object : MonoBehaviour
+public abstract class Object : MonoBehaviour
 {
     [HideInInspector]
-    public TerrainTile currentField;
+    public TerrainTile currentTile;
 
-    protected Vector3 up = new Vector3(0, 0.5f);  // TODO подкоректировать под перспективу (сейчас перспектива это деление на два )
-    protected Vector3 upleft = new Vector3(-0.75f, 0.25f);
-    protected Vector3 upright = new Vector3(0.75f, 0.25f);
+    protected static Vector3 up = new Vector3(0, 0.5f);  // TODO подкоректировать под перспективу (сейчас перспектива это деление на два )
+    protected static Vector3 upleft = new Vector3(-0.75f, 0.25f);
+    protected static Vector3 upright = new Vector3(0.75f, 0.25f);
+    protected static Vector3 down = new Vector3(0, -0.5f);
+    protected static Vector3 downleft = new Vector3(-0.75f, -0.25f);
+    protected static Vector3 downright = new Vector3(0.75f, -0.25f);
+
+    protected static List<Vector3> allDirections = new List<Vector3>() { up, upleft, upright, down, downleft, downright };
+
+    public enum Armor
+    {
+        // TODO добавь промежуточные значения
+        none = 0,       // открытые позиции и обычные солдаты
+        wood = 2,       // полевые укрепления
+        steel = 4,      // бронированная техника
+        concrete = 6    // долговечные капитальные укрепления
+    }
+
+    public enum Experience
+    {
+        recruit = 1,    // фермер с винтовкой
+        regular = 2,    // прошедшие строевую подготовку или пережившие пару боев
+        veteran = 3     // месяцы и годы боев 
+    }
 
     protected void SetTag(string tag)
     {
         gameObject.tag = tag;
     }
 
-
-
-    private void Update()
+    protected bool Check(int modifier = 0, int basic=5, int max = 10)
+    // бросок 1 кубика dmax, чем выше mod тем вероятнее успех, basic - базовый шанс
     {
+        // TODO попробуй оптимизировать чтоли
 
+        if (basic + modifier >= max) // бросок будет >100%
+        {
+            basic = max - 1; // максимальный шанс 90%
+        }
+        else if (basic - modifier <= 0) // бросок будет <0%
+        {
+            basic = 1; // минимальный шанс 10% (минимальное значение кубика 1 а не 0)
+        }
+        else
+        {
+            basic += modifier;
+        }
+
+        if (Random.Range(1, max+1) <= basic)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    protected TerrainTile GetTerrain(Vector3 check_pos) // обратиться к тайлу поля на заданой коорденате
+
+    protected static TerrainTile GetTerrain(Vector3 check_pos) // обратиться к тайлу поля на заданой коорденате
     {
         check_pos.z = 1.5f;
 
@@ -33,7 +76,7 @@ public class Object : MonoBehaviour
         Physics.Raycast(ray, out RaycastHit hit, 1);
 
 
-        Debug.DrawLine(ray.origin, ray.origin + ray.direction, Color.red, 2f); // луч
+        // Debug.DrawLine(ray.origin, ray.origin + ray.direction, Color.red, 2f); // луч
         
         if (hit.collider.gameObject.CompareTag("Terrain"))
         {
@@ -46,27 +89,32 @@ public class Object : MonoBehaviour
         
     }
 
-
-    public virtual void NpcAct()
+    public virtual IEnumerator delayedStart()  // надо подождать пока создастся земля, чтоб было к чему обращаться
     {
-        // TODO
+        yield return new WaitForSeconds(0.1f);
+        Attach();
     }
 
-    public virtual void Death()
-    {
-        Debug.Log(this + "dead");
-        Destroy(gameObject);
-    }
+    public abstract void NpcAct();
+
+    public abstract void takeDamage(int dmg);
 
 
-    public void Attach(TerrainTile tile = null)
+    protected abstract void Death();
+
+
+    public void Attach(TerrainTile tile = null)     // привязать переданный тайл к текущему объекту, а к тайлу объект
     {
+        /*
         if (tile == null)
         {
             tile = GetTerrain(gameObject.transform.position);
         }
+        */
         
-        currentField = tile;
+        tile = tile ?? GetTerrain(gameObject.transform.position);
+
+        currentTile = tile;
 
         if (this.CompareTag("Unit"))
         {
@@ -81,30 +129,18 @@ public class Object : MonoBehaviour
         // TODO для случая если тайла нет
     }
 
-    public void Detach()
+    public void Detach()    // отвязать тайл от этого объекта
     {
         if (this.CompareTag("Unit"))
         {
-            currentField.currentUnit = null;
+            currentTile.currentUnit = null;
         }
         else if (this.CompareTag("Structure"))
         {
-            currentField.currentStructure = null;
+            currentTile.currentStructure = null;
         }
 
-        currentField = null;
+        currentTile = null;
     }
-
-
-    /*
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Terrain"))
-        {
-            collision.gameObject.GetComponent<TerrainTile>().currentObject = this;
-        }
-
-    }
-    */
 
 }

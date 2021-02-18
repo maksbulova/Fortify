@@ -31,46 +31,39 @@ public class NPCsManager : MonoBehaviour
         
     }
 
-
-    public IEnumerator ActAll(bool def)
+    /*
+    private IEnumerator ActAll<T>(List<T> team) where T : Object
     {
-        if (def)
+        foreach (T obj in team)
         {
-            /*
-            foreach(Object obj in defTeam)
-            {
-                obj.NpcAct();
-            }
-            */
-
-            for (int i = 0; i < defTeam.Count; i++)
-            {
-                defTeam[i].NpcAct();
-                yield return new WaitForSeconds(0.1f);
-            }
+            obj.NpcAct();
+            yield return new WaitForSeconds(0.01f);
         }
-        else
-        {
-            for (int i = 0; i < attackTeam.Count; i++)
-            {
-                attackTeam[i].NpcAct();
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
-        
     }
+    */
+
+    private void ActAll<T>(List<T> team) where T : Object
+    {
+        foreach (T obj in team)
+        {
+            obj.NpcAct();
+        }
+    }
+
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Debug.Log("В атаку!");
-            StartCoroutine(ActAll(false));
+            // Debug.Log("Ход атаки");
+            // StartCoroutine(ActAll(attackTeam));
+            ActAll(attackTeam);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            Debug.Log("Держать строй!");
-            StartCoroutine(ActAll(true));
+            // Debug.Log("Ход защиты");
+            // StartCoroutine(ActAll(defTeam));
+            ActAll(defTeam);
         }
     }
 }
