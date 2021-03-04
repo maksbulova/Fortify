@@ -214,20 +214,14 @@ public class Unit : Object
         Movement();
     }
 
-    public override void NpcAct()
+    public override IEnumerator NpcAct()
     {
-        StartCoroutine(delayedAct());
-        // Movement();
+        yield return new WaitForSeconds(Random.Range(0.0f, 1.0f));
+        Movement();
 
         //TODO сюда добавить потом стрельбу юнита по структурам
     }
-
-    private IEnumerator delayedAct() // не костыль, но можно как-то более органично имплементировать в другой код
+    // не костыль, но можно как-то более органично имплементировать в другой код
     // что чинит: NCPsManager обращается последовательно ко всем юнитам. Без этого кода юниты начали бы действовать 
     // сразу, и в случае смерти меняли список по которому идет менеджер
-    {
-        yield return new WaitForFixedUpdate();
-        Movement();
-    }
-
 }

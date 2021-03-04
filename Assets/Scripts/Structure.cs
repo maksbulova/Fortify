@@ -106,8 +106,9 @@ public class Structure : Object
         Shoot();
     }
 
-    public override void NpcAct()
+    public override IEnumerator NpcAct()
     {
+        yield return new WaitForSeconds(Random.Range(0.0f, 1.0f));
         Shoot();
     }
 

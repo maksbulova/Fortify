@@ -42,13 +42,28 @@ public class NPCsManager : MonoBehaviour
     }
     */
 
-    private void ActAll<T>(List<T> team) where T : Object
+    public IEnumerator ActAll<T>(List<T> team) where T : Object
     {
         foreach (T obj in team)
         {
-            obj.NpcAct();
+            StartCoroutine(obj.NpcAct()); // каждый с задержкой в 0-1 сек
+        }
+
+        yield return new WaitForSeconds(1.0f);
+    }
+
+    public IEnumerator ActAll(bool def)
+    {
+        if (def)
+        {
+            yield return StartCoroutine(ActAll(defTeam));
+        }
+        else
+        {
+            yield return StartCoroutine(ActAll(attackTeam));
         }
     }
+
 
 
     private void Update()

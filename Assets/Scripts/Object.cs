@@ -95,7 +95,7 @@ public abstract class Object : MonoBehaviour
         Attach();
     }
 
-    public abstract void NpcAct();
+    public abstract IEnumerator NpcAct();
 
     public abstract void takeDamage(int dmg);
 
