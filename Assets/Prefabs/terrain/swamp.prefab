@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf77a58d2222ff640a34fb0d74571dee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cover: 0
+  mobility: -2
   currentUnit: {fileID: 0}
   currentStructure: {fileID: 0}
-  protection: 0
-  mobility: 0
 --- !u!65 &-4028756519382411573
 BoxCollider:
   m_ObjectHideFlags: 0

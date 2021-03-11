@@ -63,11 +63,11 @@ public class Structure : Object
         List<Unit> enemies = new List<Unit>();
         TerrainTile tile;
 
-        foreach (Vector3 dir in allDirections)
+        foreach (Vector3 dir in General.allDirections)
         {
             for (int i = minRange; i <= maxRange; i++)
             {
-                tile = GetTerrain(gameObject.transform.position + dir * i);
+                tile = General.GetTerrain(gameObject.transform.position + dir * i);
 
                 Debug.DrawLine(tile.gameObject.transform.position, tile.transform.position + Vector3.back, Color.red, 5f);
 

@@ -61,7 +61,7 @@ public class Unit : Object
     private void Movement()  //  TODO можно оптимизироваь, например не рассматривать занятые тайлы, сразу атаковать структуры
         // проверка на проходимость, выбор пути, перемещение
     {
-        if (Check(modifier: this.mobility + currentTile.mobility, basic: 8))  // успешная проврка - выбраться
+        if (General.Check(modifier: this.mobility + currentTile.mobility, basic: 8))  // успешная проврка - выбраться
         {
             // Debug.Log("выбрался");
 
@@ -71,9 +71,9 @@ public class Unit : Object
 
             List<TerrainTile> ways = new List<TerrainTile>();   // тайлы нижней полусферы 
 
-            ways.Add(GetTerrain(gameObject.transform.position + downleft));
-            ways.Add(GetTerrain(gameObject.transform.position + down));
-            ways.Add(GetTerrain(gameObject.transform.position + downright));
+            ways.Add(General.GetTerrain(gameObject.transform.position + General.downleft));
+            ways.Add(General.GetTerrain(gameObject.transform.position + General.down));
+            ways.Add(General.GetTerrain(gameObject.transform.position + General.downright));
 
             List<int> weights = new List<int>(3); 
 
@@ -197,7 +197,7 @@ public class Unit : Object
 
         Instantiate(Effect, transform.position, Quaternion.identity);
 
-        if (Check(modifier: +accuracy -SumCover)) // успех проверки - попадание
+        if (General.Check(modifier: +accuracy -SumCover)) // успех проверки - попадание
         {
             // TODO чек на броню
             takeDamage(dmg);
