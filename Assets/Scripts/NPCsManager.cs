@@ -49,7 +49,7 @@ public class NPCsManager : MonoBehaviour
             StartCoroutine(obj.NpcAct()); // каждый с задержкой в 0-1 сек
         }
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.0f);  // TODO привязать к скорости анимации
     }
 
     public IEnumerator ActAll(bool def)

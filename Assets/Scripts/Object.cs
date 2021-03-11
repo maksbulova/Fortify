@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 
 public abstract class Object : MonoBehaviour
 {
-    [HideInInspector]
     public TerrainTile currentTile;
 
     protected static Vector3 up = new Vector3(0, 0.5f);  // TODO подкоректировать под перспективу (сейчас перспектива это деление на два )
@@ -38,7 +37,7 @@ public abstract class Object : MonoBehaviour
         gameObject.tag = tag;
     }
 
-    protected bool Check(int modifier = 0, int basic=5, int max = 10)
+    protected static bool Check(int modifier = 0, int basic=5, int max = 10)
     // бросок 1 кубика dmax, чем выше mod тем вероятнее успех, basic - базовый шанс
     {
         // TODO попробуй оптимизировать чтоли
@@ -67,7 +66,7 @@ public abstract class Object : MonoBehaviour
     }
 
 
-    protected static TerrainTile GetTerrain(Vector3 check_pos) // обратиться к тайлу поля на заданой коорденате
+    public static TerrainTile GetTerrain(Vector3 check_pos) // обратиться к тайлу поля на заданой коорденате
     {
         check_pos.z = 1.5f;
 

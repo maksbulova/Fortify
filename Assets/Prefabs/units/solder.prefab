@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6089010963260893851}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.001, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -102,6 +102,7 @@ MonoBehaviour:
   mobility: 0
   speed: 1
   meleeDmg: 1
+  animSpeed: 2
   Effect: {fileID: 5862777961688022647, guid: a4c288143aafc684b985877c0e9e30d5, type: 3}
 --- !u!58 &-2559740174807874122
 CircleCollider2D:

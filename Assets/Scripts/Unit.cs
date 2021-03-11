@@ -20,8 +20,17 @@ public class Unit : Object
 
     [Space, Header("Технические детали")]
     private float supression = 0;
-    [Tooltip("скорость анимации ходьбы")]
-    private float animSpeed = 4;
+    [Tooltip("скорость анимации ходьбы (в секундах)")]
+    public float animSpeed = 1;
+
+    public int SumCover
+    {
+        get
+        {
+            return this.cover + currentTile.cover;
+        }
+    }
+
     [Space]
     public ParticleSystem Effect; // черновик
 
@@ -121,27 +130,30 @@ public class Unit : Object
 
     }
 
-    private IEnumerator MoveTo(TerrainTile tile)
+    private float EasingInOut(float x)
     {
-        transform.position = currentTile.transform.position + Vector3.back;
+        return x < 0.5 ? 4 * Mathf.Pow(x, 3) : 1 - Mathf.Pow(-2 * x + 2, 3) / 2;
+    }
 
-        Vector3 pos = tile.transform.position + Vector3.back;
+    private IEnumerator MoveTo(TerrainTile destinationTile)
+    {
+        Vector3 startPos = currentTile.transform.position + Vector3.back;
+        Vector3 finishPos = destinationTile.transform.position + Vector3.back;
 
         Detach();
-        Attach(tile);
+        Attach(destinationTile);
 
         GetComponent<SpriteRenderer>().sortingLayerName = "units";
-        
-        Vector3 dir;
 
-        while((pos - this.transform.position).magnitude > 0.01f)
+
+        for (float t = 0; t <= 1; t += Time.deltaTime / animSpeed)
         {
-            dir = (pos - this.transform.position) * animSpeed;
-            transform.Translate(dir * Time.deltaTime);
+            transform.position = Vector3.Lerp(startPos, finishPos, EasingInOut(t));
             yield return new WaitForFixedUpdate();
         }
 
-        transform.position = pos + Vector3.down * 0.001f; // полукостыль для рендера поверх терейна
+
+        transform.position = finishPos + Vector3.down * 0.001f; // полукостыль для рендера поверх терейна
         GetComponent<SpriteRenderer>().sortingLayerName = "terrain";
 
 
@@ -165,6 +177,7 @@ public class Unit : Object
         {
             structure.takeDamage(dmgToDef);
             this.takeDamage(dmgToAtt);
+            // TODO движение или анимация
         }
     }
     
@@ -184,7 +197,7 @@ public class Unit : Object
 
         Instantiate(Effect, transform.position, Quaternion.identity);
 
-        if (Check(modifier: +accuracy -currentTile.cover)) // успех проверки - попадание
+        if (Check(modifier: +accuracy -SumCover)) // успех проверки - попадание
         {
             // TODO чек на броню
             takeDamage(dmg);
