@@ -8,6 +8,8 @@ public class TerrainTile : MonoBehaviour
     public int cover;
     [Tooltip("чем выше тем легче выбраться")]
     public int mobility;
+    
+    public TerrainTile[] changedTiles;
 
     [Space]
     [HideInInspector]
