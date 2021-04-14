@@ -61,6 +61,7 @@ public static class General
 
     public static TerrainTile GetTerrain(Vector3 check_pos) // обратиться к тайлу поля на заданой коорденате
     {
+
         check_pos.z = 1.5f;
 
         Ray ray = new Ray(check_pos, Vector3.back);

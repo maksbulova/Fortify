@@ -4,43 +4,9 @@ using UnityEngine;
 
 public class NPCsManager : MonoBehaviour
 {
-    public static NPCsManager instance = null;
 
     public static List<Unit> attackTeam = new List<Unit>();
     public static List<Structure> defTeam = new List<Structure>();
-
-
-    void Start()
-    {
-        if (instance == null)
-        {
-            instance = this; 
-        }
-        else if (instance == this)
-        { 
-            Destroy(gameObject); 
-        }
-        DontDestroyOnLoad(gameObject);
-
-        InitializeManager();
-
-    }
-
-    private void InitializeManager()
-    {
-        
-    }
-
-    /*
-    private IEnumerator ActAll<T>(List<T> team) where T : Object
-    {
-        foreach (T obj in team)
-        {
-            obj.NpcAct();
-            yield return new WaitForSeconds(0.01f);
-        }
-    }
-    */
 
     public IEnumerator ActAll<T>(List<T> team) where T : Object
     {
