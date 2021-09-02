@@ -14,7 +14,7 @@ public static class General
     public static List<Vector3> allDirections = new List<Vector3>() { up, upleft, upright, down, downleft, downright };
 
 
-    public static bool Check(int modifier = 0, int basic = 5, int max = 10)
+    public static bool DiceCheck(int modifier = 0, int basic = 5, int max = 10)
     // бросок 1 кубика dmax, чем выше mod тем вероятнее успех, basic - базовый шанс
     {
         // TODO попробуй оптимизировать чтоли
@@ -50,6 +50,13 @@ public static class General
         wood = 2,       // полевые укрепления
         steel = 4,      // бронированная техника
         concrete = 6    // долговечные капитальные укрепления
+    }
+
+    public enum DamageType
+    {
+        shrapnel,
+        highExplosive,
+        armorePiercing
     }
 
     public enum Experience

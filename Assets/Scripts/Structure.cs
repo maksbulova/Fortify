@@ -29,6 +29,8 @@ public class Structure : Object
     [Tooltip("Влияет противоположно укрытию")]
     [Range(-3, 3)] public int accuracy;
 
+    [Space, Header("Стоимость")]
+
 
 
 
@@ -39,6 +41,7 @@ public class Structure : Object
     // и что ты имел этим в виду вообще??
     // п.с. я так понимаю префаб этой вот струкутры перетаскивается в карточку, потом на сцене создает именно тайл, 
     // а созданый тайл создается вместе с этим вот префабом, в котором обрабатывается вся логика
+    // хспд чиво 
 
 
     public void Shoot()
@@ -50,6 +53,7 @@ public class Structure : Object
         {
             for (int i = 0; i < rate; i++)
             {
+                // сломается если одним из выстрелов убьет мишень
                 rnd = Random.Range(0, enemies.Count);   // TODO распределение со смещением в начало списка
                 enemies[rnd].takeHit(damage, suppression, accuracy);//, penetration);
             }

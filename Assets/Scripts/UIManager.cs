@@ -19,10 +19,12 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        /*
         if (Input.GetKeyDown("i"))
         {
             DisplayInfo(General.GetTerrain(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
         }
+        */
     }
 
     private IEnumerator CheckObject()
@@ -40,6 +42,7 @@ public class UIManager : MonoBehaviour
         if (tile == null)
             return;
 
+        // інфа про структуру, юніт чи терейн під курсором
         if (tile.currentStructure != null)
         {
             Structure structure = tile.currentStructure;

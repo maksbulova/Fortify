@@ -12,8 +12,8 @@ public class TurnSystem : MonoBehaviour
     {
         defNPC,
         defPlayer,
-        attNPC,
-        attSpawn
+        attackNPC,
+        attackSpawn
     }
 
     private static TurnPhases turnPhase;
@@ -54,20 +54,20 @@ public class TurnSystem : MonoBehaviour
                     // игрок строит
                     nextTurnButton.interactable = true; // отключение кнопки лежит в самой кнопке
 
-                    turnPhase = TurnPhases.attNPC;
+                    turnPhase = TurnPhases.attackNPC;
                     repeat = false;  // ждать нажатия кнопки
                     break;
 
-                case TurnPhases.attNPC:
+                case TurnPhases.attackNPC:
                     // движение юнитов
 
                     yield return StartCoroutine(npcs.ActAll(def: false));
 
-                    turnPhase = TurnPhases.attSpawn;
+                    turnPhase = TurnPhases.attackSpawn;
                     repeat = true;
                     break;
 
-                case TurnPhases.attSpawn:
+                case TurnPhases.attackSpawn:
 
                     // спаун юнитов TODO
                     turnPhase = TurnPhases.defNPC;
