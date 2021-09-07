@@ -4,12 +4,13 @@ using UnityEngine;
 
 public static class General
 {
-    public static Vector3 up = new Vector3(0, 0.5f);  // TODO подкоректировать под перспективу (сейчас перспектива это деление на два )
-    public static Vector3 upleft = new Vector3(-0.75f, 0.25f);
-    public static Vector3 upright = new Vector3(0.75f, 0.25f);
-    public static Vector3 down = new Vector3(0, -0.5f);
-    public static Vector3 downleft = new Vector3(-0.75f, -0.25f);
-    public static Vector3 downright = new Vector3(0.75f, -0.25f);
+    // TODO подкоректировать под перспективу (сейчас перспектива это деление на два )
+    public static Vector3 up = Vector3.up * 0.5f;
+    public static Vector3 upleft = Vector3.up * 0.25f + Vector3.left * 0.75f;
+    public static Vector3 upright = Vector3.up * 0.25f + Vector3.right * 0.75f;
+    public static Vector3 down = Vector3.down * 0.5f;
+    public static Vector3 downleft = Vector3.down * 0.25f + Vector3.left * 0.75f;
+    public static Vector3 downright = Vector3.down * 0.25f + Vector3.right * 0.75f;
 
     public static List<Vector3> allDirections = new List<Vector3>() { up, upleft, upright, down, downleft, downright };
 
@@ -54,9 +55,11 @@ public static class General
 
     public enum DamageType
     {
-        shrapnel,
-        highExplosive,
-        armorePiercing
+        // kinetic includes bullets, shrapnel, armore piercing shells
+        kinetic,
+        // highExplosive
+        shockWave,
+        melee
     }
 
     public enum Experience
@@ -66,17 +69,19 @@ public static class General
         veteran = 3     // месяцы и годы боев 
     }
 
-    public static TerrainTile GetTerrain(Vector3 check_pos) // обратиться к тайлу поля на заданой коорденате
+
+    // обратиться к тайлу поля на заданой коорденате
+    public static TerrainTile GetTerrain(Vector3 tilePos) 
     {
 
-        check_pos.z = 1.5f;
+        tilePos.z = 1.5f;
 
-        Ray ray = new Ray(check_pos, Vector3.back);
+        Ray ray = new Ray(tilePos, Vector3.back);
 
         Physics.Raycast(ray, out RaycastHit hit, 1);
 
 
-        // Debug.DrawLine(ray.origin, ray.origin + ray.direction, Color.red, 2f); // луч
+        // Debug.DrawLine(ray.origin, ray.origin + ray.direction, Color.red, 2f);
 
         if (hit.collider != null && hit.collider.gameObject.CompareTag("Terrain"))
         {

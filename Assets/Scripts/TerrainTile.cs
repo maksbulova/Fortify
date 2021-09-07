@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TerrainTile : MonoBehaviour
+public class TerrainTile : MonoBehaviour, IDamageable
 {
     [Tooltip("чем выше тем сложнее попасть")]
     public int cover;
@@ -27,5 +27,10 @@ public class TerrainTile : MonoBehaviour
     private void OnMouseDown()
     {
         //Debug.Log(object_here);
+    }
+
+    public void TakeDamage(General.DamageType damageType, float damageAmount)
+    {
+        throw new System.NotImplementedException();
     }
 }

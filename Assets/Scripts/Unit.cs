@@ -170,13 +170,13 @@ public class Unit : Object
         if (this.health > dmgToAtt) // выживет 
         {
             structure.takeDamage(dmgToDef);
-            this.takeDamage(dmgToAtt);
+            this.TakeDamage(dmgToAtt);
             StartCoroutine(MoveTo(tile));
         }
         else  // не выживет, тоже нанесет урон и может уничтожить защитника, но оставит дорогу другому юниту для атаки
         {
             structure.takeDamage(dmgToDef);
-            this.takeDamage(dmgToAtt);
+            this.TakeDamage(dmgToAtt);
             // TODO движение или анимация
         }
     }
@@ -200,18 +200,12 @@ public class Unit : Object
         if (General.DiceCheck(modifier: +accuracy -SumCover)) // успех проверки - попадание
         {
             // TODO чек на броню
-            takeDamage(dmg);
+            TakeDamage(dmg);
 
         }
         this.supression += supres; // интересно оно вызовет ошибку раз при смерти эта штука вызывается после дестроя?
     }
-    public override void takeDamage(int dmg)
-    {
-        health -= dmg;
 
-        if (health <= 0)
-            Death();
-    }
 
     protected override void Death()
     {
@@ -234,7 +228,14 @@ public class Unit : Object
 
         //TODO сюда добавить потом стрельбу юнита по структурам
     }
+
     // не костыль, но можно как-то более органично имплементировать в другой код
     // что чинит: NCPsManager обращается последовательно ко всем юнитам. Без этого кода юниты начали бы действовать 
     // сразу, и в случае смерти меняли список по которому идет менеджер
+
+    public override void TakeDamage(General.DamageType damageType, float damageAmount)
+    {
+        throw new System.NotImplementedException();
+    }
+
 }

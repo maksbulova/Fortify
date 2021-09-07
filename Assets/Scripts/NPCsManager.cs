@@ -12,7 +12,8 @@ public class NPCsManager : MonoBehaviour
     {
         foreach (T obj in team)
         {
-            StartCoroutine(obj.NpcAct()); // каждый с задержкой в 0-1 сек
+            // каждый с задержкой в 0-1 сек
+            StartCoroutine(obj.NpcAct()); 
         }
 
         yield return new WaitForSeconds(1.0f);  // TODO привязать к скорости анимации

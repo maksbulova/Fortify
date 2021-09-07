@@ -96,13 +96,6 @@ public class Structure : Object
         return enemies;
     }
 
-    public override void takeDamage(int dmg) // если не будет ничем отличаться от той же функции в юните, то можно вынести в родителя
-    {
-        health -= dmg;
-
-        if (health <= 0)
-            Death();
-    }
 
 
     private void OnMouseDown() // только в рамках теста, не забудь добавить колайдер тк в продакте он не нужен
@@ -139,5 +132,8 @@ public class Structure : Object
 
     }
 
-
+    public override void TakeDamage(General.DamageType damageType, float damageAmount)
+    {
+        throw new System.NotImplementedException();
+    }
 }

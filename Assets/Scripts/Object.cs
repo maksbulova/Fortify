@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public abstract class Object : MonoBehaviour
+public abstract class Object : MonoBehaviour, IDamageable
 {
     public TerrainTile currentTile;
 
@@ -22,8 +22,6 @@ public abstract class Object : MonoBehaviour
     }
 
     public abstract IEnumerator NpcAct();
-
-    public abstract void takeDamage(int dmg);
 
 
     protected abstract void Death();
@@ -69,4 +67,5 @@ public abstract class Object : MonoBehaviour
         currentTile = null;
     }
 
+    public abstract void TakeDamage(General.DamageType damageType, float damageAmount);
 }
