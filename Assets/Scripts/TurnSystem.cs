@@ -34,7 +34,7 @@ public class TurnSystem : MonoBehaviour
 
     private IEnumerator GameCycle()  // игровой цикл: транше стреляют -> игрок строит -> юниты двигаются -> юниты спаунятся
     {
-        bool repeat=false;
+        bool repeat = false;
 
         do
         {

@@ -15,25 +15,28 @@ public static class General
     public static List<Vector3> allDirections = new List<Vector3>() { up, upleft, upright, down, downleft, downright };
 
 
-    public static bool DiceCheck(int modifier = 0, int basic = 5, int max = 10)
+    public static bool DiceCheck(float basic = 5, float modifier = 0, float max = 10)
     // бросок 1 кубика dmax, чем выше mod тем вероятнее успех, basic - базовый шанс
     {
+
         // TODO попробуй оптимизировать чтоли
 
-        if (basic + modifier >= max) // бросок будет >100%
+        if (basic - modifier <= 0) // бросок будет >100%
         {
-            basic = max - 1; // максимальный шанс 90%
+            basic = 1; // максимальный шанс 90%
         }
-        else if (basic - modifier <= 0) // бросок будет <0%
+        else if (basic - modifier >= max) // бросок будет <0%
         {
-            basic = 1; // минимальный шанс 10% (минимальное значение кубика 1 а не 0)
+            basic = max - 1; // минимальный шанс 10% (минимальное значение кубика 1 а не 0)
         }
         else
         {
-            basic += modifier;
+            basic -= modifier;
         }
 
-        if (Random.Range(1, max + 1) <= basic)
+        float diceResult = Random.Range(1, max);
+
+        if (diceResult >= basic)
         {
             return true;
         }

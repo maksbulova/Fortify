@@ -3,45 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEditor;
+using static General;
 
 public class Structure : Object
 {
     [Header("Параметры строения")]
 
-    // TODO range ограничивает поля не только в инспекторе но и коде, проверь чтоб не было несостыковок
-    [Tooltip("Сколько урона переживет  структура")]
-    [Range(1, 10)] public int health;
-    [Tooltip("количество выстрелов за ход")]
-    [Range(1, 10)] public int rate;   // TODO приравнять к HP
-    [Tooltip("Урон наносимый за 1 попадание (1 пуля = 1 труп) ")]
-    [Range(1, 10)] public int damage;
-    [Tooltip("Минимальная и максимальная дальность стрельбы (включительно)")]
-    [Range(1, 10)] public int maxRange;
-    [Range(1, 10)] public int minRange=1;
-    [Tooltip("урон в рукопашной за каждое хп")]
-    [Range(1, 5)] public float meleeDmg;
     [Tooltip("структура может стрелять через другую структуру если стрелок выше препятсвия")]
     [Range(0, 3)] public int high;
-    // TODO armor
-    // public Armor armor;
-    [Tooltip("Эффективность подавления. Если подавление 0.5, то противник будет прижат только при одновременном огне с двух позиций")]
-    [Range(0, 5)] public float suppression;
-    [Tooltip("Влияет противоположно укрытию")]
-    [Range(-3, 3)] public int accuracy;
+
 
     [Space, Header("Стоимость")]
-
-
 
 
     [Space, Header("Техническая инфа")]
     [Tooltip("тайл который заменит ландшафт под сооружением")]
     public TileBase ground;
     public TileBase tileImg;   // !!! только для информации при создании тайла через карточку, не создавать тайл в ручную!!!
-    // и что ты имел этим в виду вообще??
-    // п.с. я так понимаю префаб этой вот струкутры перетаскивается в карточку, потом на сцене создает именно тайл, 
-    // а созданый тайл создается вместе с этим вот префабом, в котором обрабатывается вся логика
-    // хспд чиво 
+                               // и что ты имел этим в виду вообще??
+                               // п.с. я так понимаю префаб этой вот струкутры перетаскивается в карточку, потом на сцене создает именно тайл, 
+                               // а созданый тайл создается вместе с этим вот префабом, в котором обрабатывается вся логика
+                               // хспд чиво 
+
+
+    public override int Cover
+    {
+        get
+        {
+            return this.cover + currentTile.cover;
+        }
+    }
 
 
     public void Shoot()
@@ -113,7 +104,7 @@ public class Structure : Object
     {
         NPCsManager.defTeam.Remove(this);
 
-        Detach();
+        DetachTerrainTile();
         TilemapsManager.TilemapStructure.SetTile(TilemapsManager.TilemapStructure.WorldToCell(transform.position), null);
     }
 
@@ -132,8 +123,10 @@ public class Structure : Object
 
     }
 
-    public override void TakeDamage(General.DamageType damageType, float damageAmount)
+
+    public override void TakeHit(DamageType damageType, float damageAmount, float accuracy, float piercing)
     {
         throw new System.NotImplementedException();
     }
+
 }

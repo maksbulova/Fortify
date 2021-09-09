@@ -2,28 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static General;
+
 
 public class Unit : Object
 {
-    [Header("Параметры юнита")]
-    [Tooltip("здоровье"), Range(1, 10)]
-    public int health;
-    // public int armor; TODO
-    [Tooltip("чем выше тем сложнее попасть"), Range(-10, 10)]
-    public int cover;
-    [Tooltip("чем выше тем вероятнее выбраться"), Range(-10, 10)]
-    public int mobility;
     [Tooltip("сколько тайлов пройдено за ход"), Range(1, 5)]
     public int speed;
-    [Tooltip("урон за каждого соладта (хп) в отряде"), Range(1, 5)]
-    public float meleeDmg;
 
     [Space, Header("Технические детали")]
     private float supression = 0;
     [Tooltip("скорость анимации ходьбы (в секундах)")]
     public float animSpeed = 1;
 
-    public int SumCover
+    public override int Cover
     {
         get
         {
@@ -61,7 +53,7 @@ public class Unit : Object
     private void Movement()  //  TODO можно оптимизироваь, например не рассматривать занятые тайлы, сразу атаковать структуры
         // проверка на проходимость, выбор пути, перемещение
     {
-        if (General.DiceCheck(modifier: this.mobility + currentTile.mobility, basic: 8))  // успешная проврка - выбраться
+        if (DiceCheck(basic: 8, modifier: this.mobility + currentTile.mobility))  // успешная проврка - выбраться
         {
             // Debug.Log("выбрался");
 
@@ -114,7 +106,7 @@ public class Unit : Object
 
                 if (tileToMove.currentStructure != null)
                 {
-                    MeleeCharge(tileToMove);
+                    MeleeAttack(tileToMove);
                 }
                 else
                 {
@@ -140,8 +132,8 @@ public class Unit : Object
         Vector3 startPos = currentTile.transform.position + Vector3.back;
         Vector3 finishPos = destinationTile.transform.position + Vector3.back;
 
-        Detach();
-        Attach(destinationTile);
+        DetachTerrainTile();
+        AttachTerrainTile(destinationTile);
 
         GetComponent<SpriteRenderer>().sortingLayerName = "units";
 
@@ -159,10 +151,10 @@ public class Unit : Object
 
     }
 
-    
-    private void MeleeCharge(TerrainTile tile) // ход на клетку со структурой, нужен чтобы два юнита могли атаковать одну структуру, но не ходили на одно поле
+    // ход на клетку со структурой, TODO чтобы два юнита могли атаковать одну структуру, но не ходили на одно поле
+    private void MeleeAttack(TerrainTile attackedTile) 
     {
-        Structure structure = tile.currentStructure;
+        Structure structure = attackedTile.currentStructure;
 
         int dmgToDef = Mathf.FloorToInt(this.health * this.meleeDmg);
         int dmgToAtt = Mathf.FloorToInt(structure.health * structure.meleeDmg);
@@ -171,7 +163,7 @@ public class Unit : Object
         {
             structure.takeDamage(dmgToDef);
             this.TakeDamage(dmgToAtt);
-            StartCoroutine(MoveTo(tile));
+            StartCoroutine(MoveTo(attackedTile));
         }
         else  // не выживет, тоже нанесет урон и может уничтожить защитника, но оставит дорогу другому юниту для атаки
         {
@@ -191,27 +183,12 @@ public class Unit : Object
         NPCsManager.attackTeam.Add(this);
     }
 
-    public void takeHit(int dmg, float supres, int accuracy)//, int penetration)
-    {
-        // Debug.Log("hit");
-
-        Instantiate(Effect, transform.position, Quaternion.identity);
-
-        if (General.DiceCheck(modifier: +accuracy -SumCover)) // успех проверки - попадание
-        {
-            // TODO чек на броню
-            TakeDamage(dmg);
-
-        }
-        this.supression += supres; // интересно оно вызовет ошибку раз при смерти эта штука вызывается после дестроя?
-    }
-
 
     protected override void Death()
     {
         NPCsManager.attackTeam.Remove(this);
 
-        Detach();
+        DetachTerrainTile();
         Destroy(gameObject);
 
     }
@@ -227,15 +204,16 @@ public class Unit : Object
         Movement();
 
         //TODO сюда добавить потом стрельбу юнита по структурам
+
+        // не костыль, но можно как-то более органично имплементировать в другой код
+        // что чинит: NCPsManager обращается последовательно ко всем юнитам. Без этого кода юниты начали бы действовать 
+        // сразу, и в случае смерти меняли список по которому идет менеджер
     }
 
-    // не костыль, но можно как-то более органично имплементировать в другой код
-    // что чинит: NCPsManager обращается последовательно ко всем юнитам. Без этого кода юниты начали бы действовать 
-    // сразу, и в случае смерти меняли список по которому идет менеджер
-
-    public override void TakeDamage(General.DamageType damageType, float damageAmount)
+    public override void TakeHit(DamageType damageType, float damageAmount, float accuracy, float piercing)
     {
-        throw new System.NotImplementedException();
     }
+
+
 
 }
