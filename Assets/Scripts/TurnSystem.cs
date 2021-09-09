@@ -6,13 +6,14 @@ using UnityEngine.UI;
 public class TurnSystem : MonoBehaviour
 {
     private NPCsManager npcs;
-    public Button nextTurnButton;
+    [SerializeField] private Button nextTurnButton;
+
 
     private enum TurnPhases
     {
-        defNPC,
-        defPlayer,
-        attackNPC,
+        defShoot,
+        defBuild,
+        attackMove,
         attackSpawn
     }
 
@@ -22,7 +23,7 @@ public class TurnSystem : MonoBehaviour
     {
         npcs = gameObject.GetComponent<NPCsManager>();
 
-        turnPhase = TurnPhases.defNPC;
+        turnPhase = TurnPhases.defShoot;
         StartCoroutine(GameCycle());
     }
 
@@ -34,31 +35,31 @@ public class TurnSystem : MonoBehaviour
 
     private IEnumerator GameCycle()  // игровой цикл: транше стреляют -> игрок строит -> юниты двигаются -> юниты спаунятся
     {
-        bool repeat=false;
+        bool repeat = false;
 
         do
         {
             switch (turnPhase)
             {
-                case TurnPhases.defNPC:
+                case TurnPhases.defShoot:
                     // стрельба траншей
 
                     yield return StartCoroutine(npcs.ActAll(def: true));
 
-                    turnPhase = TurnPhases.defPlayer;
+                    turnPhase = TurnPhases.defBuild;
                     repeat = true;
                     break;
 
-                case TurnPhases.defPlayer:
+                case TurnPhases.defBuild:
 
                     // игрок строит
                     nextTurnButton.interactable = true; // отключение кнопки лежит в самой кнопке
 
-                    turnPhase = TurnPhases.attackNPC;
+                    turnPhase = TurnPhases.attackMove;
                     repeat = false;  // ждать нажатия кнопки
                     break;
 
-                case TurnPhases.attackNPC:
+                case TurnPhases.attackMove:
                     // движение юнитов
 
                     yield return StartCoroutine(npcs.ActAll(def: false));
@@ -70,7 +71,7 @@ public class TurnSystem : MonoBehaviour
                 case TurnPhases.attackSpawn:
 
                     // спаун юнитов TODO
-                    turnPhase = TurnPhases.defNPC;
+                    turnPhase = TurnPhases.defShoot;
                     repeat = true;
                     break;
 
