@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public abstract class Object : MonoBehaviour, IDamageable, INonPlayableCharacter
+public abstract class Object : MonoBehaviour, IDamageable
 {
     public TerrainTile currentTile;
 
@@ -18,14 +18,16 @@ public abstract class Object : MonoBehaviour, IDamageable, INonPlayableCharacter
     public virtual IEnumerator delayedStart()  // надо подождать пока создастся земля, чтоб было к чему обращаться
     {
         yield return new WaitForSeconds(0.1f);
-        AttachTerrainTile();
+        Attach();
     }
+
+    public abstract IEnumerator NpcAct();
 
 
     protected abstract void Death();
 
 
-    public void AttachTerrainTile(TerrainTile tile = null)     // привязать переданный тайл к текущему объекту, а к тайлу объект
+    public void Attach(TerrainTile tile = null)     // привязать переданный тайл к текущему объекту, а к тайлу объект
     {
         /*
         if (tile == null)
@@ -51,7 +53,7 @@ public abstract class Object : MonoBehaviour, IDamageable, INonPlayableCharacter
         // TODO для случая если тайла нет
     }
 
-    public void DetachTerrainTile()    // отвязать тайл от этого объекта
+    public void Detach()    // отвязать тайл от этого объекта
     {
         if (this.CompareTag("Unit"))
         {
@@ -66,7 +68,4 @@ public abstract class Object : MonoBehaviour, IDamageable, INonPlayableCharacter
     }
 
     public abstract void TakeDamage(General.DamageType damageType, float damageAmount);
-    public abstract void JoinTeam();
-
-    public abstract void NpcAct();
 }

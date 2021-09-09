@@ -118,7 +118,7 @@ public class Unit : Object
                 }
                 else
                 {
-                    StartCoroutine(MoveToTile(tileToMove));
+                    StartCoroutine(MoveTo(tileToMove));
                 }
             }
 
@@ -135,14 +135,13 @@ public class Unit : Object
         return x < 0.5 ? 4 * Mathf.Pow(x, 3) : 1 - Mathf.Pow(-2 * x + 2, 3) / 2;
     }
 
-    private IEnumerator MoveToTile(TerrainTile destinationTile)
+    private IEnumerator MoveTo(TerrainTile destinationTile)
     {
-
         Vector3 startPos = currentTile.transform.position + Vector3.back;
         Vector3 finishPos = destinationTile.transform.position + Vector3.back;
 
-        DetachTerrainTile();
-        AttachTerrainTile(destinationTile);
+        Detach();
+        Attach(destinationTile);
 
         GetComponent<SpriteRenderer>().sortingLayerName = "units";
 
@@ -172,7 +171,7 @@ public class Unit : Object
         {
             structure.takeDamage(dmgToDef);
             this.TakeDamage(dmgToAtt);
-            StartCoroutine(MoveToTile(tile));
+            StartCoroutine(MoveTo(tile));
         }
         else  // не выживет, тоже нанесет урон и может уничтожить защитника, но оставит дорогу другому юниту для атаки
         {
@@ -192,7 +191,7 @@ public class Unit : Object
         NPCsManager.attackTeam.Add(this);
     }
 
-    public void TakeHit(int dmg, float supres, int accuracy)//, int penetration)
+    public void takeHit(int dmg, float supres, int accuracy)//, int penetration)
     {
         // Debug.Log("hit");
 
@@ -212,7 +211,7 @@ public class Unit : Object
     {
         NPCsManager.attackTeam.Remove(this);
 
-        DetachTerrainTile();
+        Detach();
         Destroy(gameObject);
 
     }
@@ -222,19 +221,21 @@ public class Unit : Object
         Movement();
     }
 
+    public override IEnumerator NpcAct()
+    {
+        yield return new WaitForSeconds(Random.Range(0.0f, 1.0f));
+        Movement();
+
+        //TODO сюда добавить потом стрельбу юнита по структурам
+    }
+
+    // не костыль, но можно как-то более органично имплементировать в другой код
+    // что чинит: NCPsManager обращается последовательно ко всем юнитам. Без этого кода юниты начали бы действовать 
+    // сразу, и в случае смерти меняли список по которому идет менеджер
 
     public override void TakeDamage(General.DamageType damageType, float damageAmount)
     {
-        // TODO
-    }
-
-    public override void JoinTeam()
-    {
-        NPCsManager.
-    }
-
-    public override void NpcAct()
-    {
         throw new System.NotImplementedException();
     }
+
 }
