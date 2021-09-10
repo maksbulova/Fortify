@@ -8,28 +8,28 @@ public abstract class Object : MonoBehaviour, IDamageable
     protected TerrainTile currentTile;
 
     [Header("Параметры юнита")]
-    [Tooltip("здоровье"), SerializeField, Range(1, 10)]
+    [SerializeField, Range(1, 10), Tooltip("здоровье")]
     protected int health;
-    [Tooltip("количество выстрелов за ход"), SerializeField, Range(1, 10)]
+    [SerializeField, Range(1, 10), Tooltip("количество выстрелов за ход")]
     protected int fireRate; // TODO приравнять к HP
-    [Tooltip("чем выше тем сложнее пробить"), SerializeField, Range(0, 10)]
+    [SerializeField, Range(0, 10), Tooltip("чем выше тем сложнее пробить")]
     protected int armor;
-    [Tooltip("чем выше тем сложнее попасть"), SerializeField, Range(-10, 10)]
+    [SerializeField, Range(-10, 10), Tooltip("чем выше тем сложнее попасть")]
     protected int cover;
-    [Tooltip("чем выше тем вероятнее выбраться"), SerializeField, Range(-10, 10)]
+    [SerializeField, Range(-10, 10), Tooltip("чем выше тем вероятнее выбраться")]
     protected int mobility;
     [Tooltip("урон за каждого соладта (хп) в отряде"), SerializeField, Range(1, 5)]
     protected float meleeDmg;
-    [Tooltip("Урон наносимый за 1 попадание (1 пуля = 1 труп) "), SerializeField, Range(1, 10)]
+    [SerializeField, Range(1, 10), Tooltip("Урон наносимый за 1 попадание (1 пуля = 1 труп) ")]
     protected int shotDamage;
     protected int armorPiercing;
     [Tooltip("Минимальная и максимальная дальность стрельбы (включительно)")]
     [Range(1, 10)] protected int maxRange;
     [Range(1, 10)] protected int minRange = 1;
     //Если подавление 0.5, то противник будет прижат только при одновременном огне с двух позиций
-    [Tooltip("Эффективность подавления"), SerializeField, Range(0, 5)]
+    [SerializeField, Range(0, 5), Tooltip("Эффективность подавления")]
     protected float suppression;
-    [Tooltip("Влияет противоположно укрытию"), SerializeField, Range(-3, 3)]
+    [SerializeField, Range(-3, 3), Tooltip("Влияет противоположно укрытию")]
     protected int accuracy;
 
 

@@ -38,7 +38,7 @@ public class TerrainTile : MonoBehaviour, IDamageable
         }
         else if (currentStructure != null)
         {
-            currentStructure.TakeHit(damageType, damageAmount, accuracy, piercing);
+            currentStructure.TakeHit(damageType, damageAmount, accuracy: 0, piercing);
         }
 
         TakeDamage(damageType, damageAmount);
