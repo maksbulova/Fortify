@@ -31,7 +31,7 @@ public class Structure : Object
     {
         List<Unit> enemies = SearchEnemy();
 
-        for (int i = 0; i < fireRate; i++)
+        for (int i = 0; i < FireRate; i++)
         {
             if (enemies.Count > 0)
             {

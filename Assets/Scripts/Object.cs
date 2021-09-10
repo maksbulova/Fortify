@@ -10,8 +10,8 @@ public abstract class Object : MonoBehaviour, IDamageable
     [Header("Параметры юнита")]
     [SerializeField, Range(1, 10), Tooltip("здоровье")]
     protected int health;
-    [SerializeField, Range(1, 10), Tooltip("количество выстрелов за ход")]
-    protected int fireRate; // TODO приравнять к HP
+    [SerializeField, Range(1, 10), Tooltip("выстрелов от каждого юнита (каждого хп)")]
+    protected float fireRate;
     [SerializeField, Range(0, 10), Tooltip("чем выше тем сложнее пробить")]
     protected int armor;
     [SerializeField, Range(-10, 10), Tooltip("чем выше тем сложнее попасть")]
@@ -50,6 +50,14 @@ public abstract class Object : MonoBehaviour, IDamageable
         get
         {
             return this.cover + currentTile.cover;
+        }
+    }
+
+    protected int FireRate
+    {
+        get
+        {
+            return Mathf.FloorToInt(fireRate * Health);
         }
     }
 

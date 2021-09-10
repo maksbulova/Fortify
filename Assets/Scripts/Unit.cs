@@ -54,9 +54,9 @@ public class Unit : Object
 
             List<TerrainTile> ways = new List<TerrainTile>();   // тайлы нижней полусферы 
 
-            ways.Add(General.GetTerrain(gameObject.transform.position + General.downleft));
-            ways.Add(General.GetTerrain(gameObject.transform.position + General.down));
-            ways.Add(General.GetTerrain(gameObject.transform.position + General.downright));
+            ways.Add(GetTerrain(gameObject.transform.position + downleft));
+            ways.Add(GetTerrain(gameObject.transform.position + down));
+            ways.Add(GetTerrain(gameObject.transform.position + downright));
 
             List<int> weights = new List<int>(3); 
 

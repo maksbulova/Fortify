@@ -30,7 +30,7 @@ public class TerrainTile : MonoBehaviour, IDamageable
         //Debug.Log(object_here);
     }
 
-    public void TakeHit(General.DamageType damageType, float damageAmount, float accuracy, float piercing)
+    public void TakeHit(DamageType damageType, float damageAmount, float accuracy, float piercing)
     {
         if (currentUnit != null)
         {
