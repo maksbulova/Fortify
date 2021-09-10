@@ -26,15 +26,6 @@ public class Structure : Object
                                // хспд чиво 
 
 
-    public override int Cover
-    {
-        get
-        {
-            return this.cover + currentTile.cover;
-        }
-    }
-
-
     public void Shoot()
     {
         List<Unit> enemies = SearchEnemy();
@@ -44,7 +35,7 @@ public class Structure : Object
         {
             for (int i = 0; i < rate; i++)
             {
-                // сломается если одним из выстрелов убьет мишень
+                // сломается если одним из выстрелов убьет мишень!!!!!!!
                 rnd = Random.Range(0, enemies.Count);   // TODO распределение со смещением в начало списка
                 enemies[rnd].takeHit(damage, suppression, accuracy);//, penetration);
             }
@@ -123,10 +114,5 @@ public class Structure : Object
 
     }
 
-
-    public override void TakeHit(DamageType damageType, float damageAmount, float accuracy, float piercing)
-    {
-        throw new System.NotImplementedException();
-    }
 
 }

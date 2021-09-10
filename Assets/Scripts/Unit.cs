@@ -15,13 +15,6 @@ public class Unit : Object
     [Tooltip("скорость анимации ходьбы (в секундах)")]
     public float animSpeed = 1;
 
-    public override int Cover
-    {
-        get
-        {
-            return this.cover + currentTile.cover;
-        }
-    }
 
     [Space]
     public ParticleSystem Effect; // черновик
@@ -156,20 +149,15 @@ public class Unit : Object
     {
         Structure structure = attackedTile.currentStructure;
 
-        int dmgToDef = Mathf.FloorToInt(this.health * this.meleeDmg);
-        int dmgToAtt = Mathf.FloorToInt(structure.health * structure.meleeDmg);
+        float attackerDmg = Mathf.FloorToInt(this.MeleeDamage);
+        int defenderDmg = Mathf.FloorToInt(structure.MeleeDamage);
 
-        if (this.health > dmgToAtt) // выживет 
+        structure.TakeDamage(DamageType.melee, attackerDmg);
+        this.TakeDamage(DamageType.melee, defenderDmg);
+
+        if (this.health > 0)
         {
-            structure.takeDamage(dmgToDef);
-            this.TakeDamage(dmgToAtt);
             StartCoroutine(MoveTo(attackedTile));
-        }
-        else  // не выживет, тоже нанесет урон и может уничтожить защитника, но оставит дорогу другому юниту для атаки
-        {
-            structure.takeDamage(dmgToDef);
-            this.TakeDamage(dmgToAtt);
-            // TODO движение или анимация
         }
     }
     
@@ -186,6 +174,8 @@ public class Unit : Object
 
     protected override void Death()
     {
+        StopAllCoroutines();
+
         NPCsManager.attackTeam.Remove(this);
 
         DetachTerrainTile();
@@ -209,11 +199,6 @@ public class Unit : Object
         // что чинит: NCPsManager обращается последовательно ко всем юнитам. Без этого кода юниты начали бы действовать 
         // сразу, и в случае смерти меняли список по которому идет менеджер
     }
-
-    public override void TakeHit(DamageType damageType, float damageAmount, float accuracy, float piercing)
-    {
-    }
-
 
 
 }

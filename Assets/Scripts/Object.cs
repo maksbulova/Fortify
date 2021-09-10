@@ -7,13 +7,6 @@ public abstract class Object : MonoBehaviour, IDamageable
 {
     public TerrainTile currentTile;
 
-    public abstract int Cover { get; }
-
-    protected void SetTag(string tag)
-    {
-        gameObject.tag = tag;
-    }
-
     [Header("Параметры юнита")]
     [Tooltip("здоровье"), Range(1, 10)]
     public int health;
@@ -40,6 +33,27 @@ public abstract class Object : MonoBehaviour, IDamageable
 
 
 
+    public int Cover
+    {
+        get
+        {
+            return this.cover + currentTile.cover;
+        }
+    }
+
+    protected void SetTag(string tag)
+    {
+        gameObject.tag = tag;
+    }
+    public float MeleeDamage
+    {
+        get
+        {
+            return health * meleeDmg;
+        }
+    }
+
+
 
     public virtual IEnumerator delayedStart()  // надо подождать пока создастся земля, чтоб было к чему обращаться
     {
@@ -62,7 +76,7 @@ public abstract class Object : MonoBehaviour, IDamageable
         }
         */
         
-        tile = tile ?? General.GetTerrain(gameObject.transform.position);
+        tile = tile ?? GetTerrain(gameObject.transform.position);
 
         currentTile = tile;
 
@@ -93,7 +107,7 @@ public abstract class Object : MonoBehaviour, IDamageable
         currentTile = null;
     }
 
-    public virtual void TakeHit(DamageType damageType, float damageAmount, float accuracy, float piercing)
+    public void TakeHit(DamageType damageType, float damageAmount, float accuracy, float piercing)
     {
         float hitModifiers = +accuracy -Cover;
         bool hitted = DiceCheck(modifier: hitModifiers);
@@ -111,5 +125,28 @@ public abstract class Object : MonoBehaviour, IDamageable
 
     }
 
-    public abstract void TakeDamage(DamageType damageType, float damageAmount);
+    public void TakeDamage(DamageType damageType, float damageAmount)
+    {
+        health -= Mathf.FloorToInt(damageAmount);
+
+        if (DeathCheck())
+        {
+            Death();
+        }
+
+    }
+
+
+    protected bool DeathCheck()
+    {
+        if (health <= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }
