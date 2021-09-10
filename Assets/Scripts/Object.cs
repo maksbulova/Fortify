@@ -11,7 +11,7 @@ public abstract class Object : MonoBehaviour, IDamageable
     [Tooltip("здоровье"), Range(1, 10)]
     public int health;
     [Tooltip("количество выстрелов за ход"), Range(1, 10)]
-    public int rate;   // TODO приравнять к HP
+    public int rate; // TODO приравнять к HP
     [Tooltip("чем выше тем сложнее пробить"), Range(0, 10)]
     public int armor;
     [Tooltip("чем выше тем сложнее попасть"), Range(-10, 10)]
@@ -21,7 +21,8 @@ public abstract class Object : MonoBehaviour, IDamageable
     [Tooltip("урон за каждого соладта (хп) в отряде"), Range(1, 5)]
     public float meleeDmg;
     [Tooltip("Урон наносимый за 1 попадание (1 пуля = 1 труп) "), Range(1, 10)]
-    public int damage;
+    public int shotDamage;
+    public int armorPiercing;
     [Tooltip("Минимальная и максимальная дальность стрельбы (включительно)")]
     [Range(1, 10)] public int maxRange;
     [Range(1, 10)] public int minRange = 1;

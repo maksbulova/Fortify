@@ -29,52 +29,51 @@ public class Structure : Object
     public void Shoot()
     {
         List<Unit> enemies = SearchEnemy();
-        int rnd;
 
-        if (enemies.Count > 0)
+        for (int i = 0; i < rate; i++)
         {
-            for (int i = 0; i < rate; i++)
+            if (enemies.Count > 0)
             {
-                // сломается если одним из выстрелов убьет мишень!!!!!!!
-                rnd = Random.Range(0, enemies.Count);   // TODO распределение со смещением в начало списка
-                enemies[rnd].takeHit(damage, suppression, accuracy);//, penetration);
-            }
+                int rng = Random.Range(0, enemies.Count);
+                Unit enemy = enemies[rng];
+                enemy.TakeHit(DamageType.kinetic, shotDamage, accuracy, armorPiercing);
 
-            // Debug.Log("fire");
+                // if killed
+                if (enemy == null)
+                {
+                    enemies.Remove(enemy);
+                }
+            }
+            else
+            {
+                return;
+            }
         }
     }
 
     private List<Unit> SearchEnemy()
     {
         List<Unit> enemies = new List<Unit>();
-        TerrainTile tile;
 
-        foreach (Vector3 dir in General.allDirections)
+        foreach (Vector3 shotDirection in allDirections)
         {
             for (int i = minRange; i <= maxRange; i++)
             {
-                tile = General.GetTerrain(gameObject.transform.position + dir * i);
+                TerrainTile tile = GetTerrain(gameObject.transform.position + shotDirection * i);
 
-                Debug.DrawLine(tile.gameObject.transform.position, tile.transform.position + Vector3.back, Color.red, 5f);
+                // Debug.DrawLine(tile.gameObject.transform.position, tile.transform.position + Vector3.back, Color.red, 5f);
 
-                if (tile.currentStructure != null && tile.currentStructure.high >= this.high) // если на пути есть структура высотой >= меня, то в эту сторону стрелять дальше нельзя
+                // если на пути есть структура высотой >= меня, то в эту сторону стрелять дальше нельзя
+                if (tile.currentStructure != null && tile.currentStructure.high >= this.high)
                 {
-                    goto Obstacle;
+                    break;
                 }
                 else if (tile.currentUnit != null)
                 {
                     enemies.Add(tile.currentUnit);
                 }
             }
-        Obstacle:;
-
         }
-        /*
-        foreach (Unit unit in enemies)
-        {
-            Debug.DrawLine(unit.gameObject.transform.position, unit.transform.position + Vector3.back, Color.yellow, 5f);
-        }
-        */
         return enemies;
     }
 
