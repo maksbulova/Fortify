@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Text infoTitle;
-    public Image infoImg;
-    public Text infoText;
+    [SerializeField] private Text infoTitle;
+    [SerializeField] private Image infoImg;
+    [SerializeField] private Text infoText;
     
 
     private void Start()
@@ -17,21 +17,14 @@ public class UIManager : MonoBehaviour
         StartCoroutine(CheckObject());
     }
 
-    private void Update()
-    {
-        /*
-        if (Input.GetKeyDown("i"))
-        {
-            DisplayInfo(General.GetTerrain(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
-        }
-        */
-    }
-
     private IEnumerator CheckObject()
     {
         while (true)
         {
-            DisplayInfo(General.GetTerrain(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+            Vector3 mousePos = Input.mousePosition;
+            Vector3 tilePos = Camera.main.ScreenToWorldPoint(mousePos);
+            TerrainTile tile = General.GetTerrain(tilePos);
+            DisplayInfo(tile);
             
             yield return null;
         }
@@ -42,20 +35,20 @@ public class UIManager : MonoBehaviour
         if (tile == null)
             return;
 
-        // інфа про структуру, юніт чи терейн під курсором
-        if (tile.currentStructure != null)
-        {
-            Structure structure = tile.currentStructure;
-            infoTitle.text = FormateTitle(structure.gameObject.name);
-            infoImg.sprite = TilemapsManager.TilemapStructure.GetSprite(TilemapsManager.TilemapStructure.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
-            infoText.text = $"Health: {structure.health}";
-        }
-        else if (tile.currentUnit != null)
+        // інфа про юніт, структуру чи терейн під курсором
+        if (tile.currentUnit != null)
         {
             Unit unit = tile.currentUnit;
             infoTitle.text = FormateTitle(unit.gameObject.name);
             infoImg.sprite = unit.gameObject.GetComponent<SpriteRenderer>().sprite;
-            infoText.text = $"Health: {unit.health} \nCurrent cover: {unit.SumCover}";
+            infoText.text = $"Health: {unit.Health} \nCurrent cover: {unit.Cover}";
+        }
+        else if (tile.currentStructure != null)
+        {
+            Structure structure = tile.currentStructure;
+            infoTitle.text = FormateTitle(structure.gameObject.name);
+            infoImg.sprite = TilemapsManager.TilemapStructure.GetSprite(TilemapsManager.TilemapStructure.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+            infoText.text = $"Health: {structure.Health}";
         }
         else
         {

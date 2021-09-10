@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class NPCsManager : MonoBehaviour
 {
-
-    public static List<Unit> attackTeam = new List<Unit>();
-    public static List<Structure> defTeam = new List<Structure>();
+    private static List<Unit> attackTeam = new List<Unit>();
+    private static List<Structure> defTeam = new List<Structure>();
 
     public IEnumerator ActAll<T>(List<T> team) where T : Object
     {
@@ -31,6 +30,30 @@ public class NPCsManager : MonoBehaviour
         }
     }
 
+    public static void JoinTeam<T>(T joiningObject)
+    {
+        if (typeof(T) == typeof(Unit))
+        {
+            attackTeam.Add(joiningObject as Unit);
+        }
+        else if(typeof(T) == typeof(Structure))
+        {
+            defTeam.Add(joiningObject as Structure);
+
+        }
+    }
+
+    public static void LeaveTeam<T>(T leavingObject)
+    {
+        if (typeof(T) == typeof(Unit))
+        {
+            attackTeam.Remove(leavingObject as Unit);
+        }
+        else if (typeof(T) == typeof(Structure))
+        {
+            defTeam.Remove(leavingObject as Structure);
+        }
+    }
 
 
     private void Update()

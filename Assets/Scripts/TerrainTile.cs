@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static General;
 
 public class TerrainTile : MonoBehaviour, IDamageable
 {
@@ -8,8 +9,8 @@ public class TerrainTile : MonoBehaviour, IDamageable
     public int cover;
     [Tooltip("чем выше тем легче выбраться")]
     public int mobility;
-    
-    public TerrainTile[] changedTiles;
+    [SerializeField]
+    private TerrainTile[] shockWaveChangedTiles;
 
     [Space]
     [HideInInspector]
@@ -29,8 +30,25 @@ public class TerrainTile : MonoBehaviour, IDamageable
         //Debug.Log(object_here);
     }
 
-    public void TakeDamage(General.DamageType damageType, float damageAmount)
+    public void TakeHit(General.DamageType damageType, float damageAmount, float accuracy, float piercing)
     {
-        throw new System.NotImplementedException();
+        if (currentUnit != null)
+        {
+            currentUnit.TakeHit(damageType, damageAmount, accuracy, piercing);
+        }
+        else if (currentStructure != null)
+        {
+            currentStructure.TakeHit(damageType, damageAmount, accuracy, piercing);
+        }
+
+        TakeDamage(damageType, damageAmount);
+    }
+
+    public void TakeDamage(DamageType damageType, float damageAmount)
+    {
+        if (damageType == DamageType.shockWave)
+        {
+            // TODO проверить пересоздает ли смена тайла объект на этом тайле
+        }
     }
 }

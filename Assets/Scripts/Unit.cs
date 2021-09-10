@@ -7,19 +7,17 @@ using static General;
 
 public class Unit : Object
 {
-    [Tooltip("сколько тайлов пройдено за ход"), Range(1, 5)]
-    public int speed;
+    [Tooltip("сколько тайлов пройдено за ход"), SerializeField, Range(1, 5)]
+    private int speed;
 
     [Space, Header("Технические детали")]
     private float supression = 0;
-    [Tooltip("скорость анимации ходьбы (в секундах)")]
-    public float animSpeed = 1;
+    [Tooltip("скорость анимации ходьбы (в секундах)"), SerializeField]
+    private float animationSpeed = 1;
 
 
-    [Space]
-    public ParticleSystem Effect; // черновик
-
-
+    [Space, SerializeField]
+    private ParticleSystem Effect; // черновик
 
 
     private int RateField(TerrainTile tile)    // оценка тайла
@@ -131,7 +129,7 @@ public class Unit : Object
         GetComponent<SpriteRenderer>().sortingLayerName = "units";
 
 
-        for (float t = 0; t <= 1; t += Time.deltaTime / animSpeed)
+        for (float t = 0; t <= 1; t += Time.deltaTime / animationSpeed)
         {
             transform.position = Vector3.Lerp(startPos, finishPos, EasingInOut(t));
             yield return new WaitForFixedUpdate();
@@ -168,7 +166,7 @@ public class Unit : Object
 
         StartCoroutine("delayedStart");
 
-        NPCsManager.attackTeam.Add(this);
+        NPCsManager.JoinTeam<Unit>(this);
     }
 
 
@@ -176,7 +174,7 @@ public class Unit : Object
     {
         StopAllCoroutines();
 
-        NPCsManager.attackTeam.Remove(this);
+        NPCsManager.LeaveTeam(this);
 
         DetachTerrainTile();
         Destroy(gameObject);

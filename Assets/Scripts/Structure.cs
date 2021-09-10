@@ -12,25 +12,26 @@ public class Structure : Object
     [Tooltip("структура может стрелять через другую структуру если стрелок выше препятсвия")]
     [Range(0, 3)] public int high;
 
-
     [Space, Header("Стоимость")]
 
 
     [Space, Header("Техническая инфа")]
-    [Tooltip("тайл который заменит ландшафт под сооружением")]
-    public TileBase ground;
-    public TileBase tileImg;   // !!! только для информации при создании тайла через карточку, не создавать тайл в ручную!!!
-                               // и что ты имел этим в виду вообще??
-                               // п.с. я так понимаю префаб этой вот струкутры перетаскивается в карточку, потом на сцене создает именно тайл, 
-                               // а созданый тайл создается вместе с этим вот префабом, в котором обрабатывается вся логика
-                               // хспд чиво 
+    [Tooltip("тайл который заменит ландшафт под сооружением"), SerializeField]
+    private TileBase ground;
+    [SerializeField]
+    private TileBase structureTile;
+    // !!! только для информации при создании тайла через карточку, не создавать тайл в ручную!!!
+    // и что ты имел этим в виду вообще??
+    // п.с. я так понимаю префаб этой вот струкутры перетаскивается в карточку, потом на сцене создает именно тайл, 
+    // а созданый тайл создается вместе с этим вот префабом, в котором обрабатывается вся логика
+    // хспд чиво 
 
 
     public void Shoot()
     {
         List<Unit> enemies = SearchEnemy();
 
-        for (int i = 0; i < rate; i++)
+        for (int i = 0; i < fireRate; i++)
         {
             if (enemies.Count > 0)
             {
@@ -92,7 +93,7 @@ public class Structure : Object
 
     protected override void Death()
     {
-        NPCsManager.defTeam.Remove(this);
+        NPCsManager.LeaveTeam(this);
 
         DetachTerrainTile();
         TilemapsManager.TilemapStructure.SetTile(TilemapsManager.TilemapStructure.WorldToCell(transform.position), null);
@@ -105,12 +106,12 @@ public class Structure : Object
 
         //shoot_test = AssetDatabase.LoadAssetAtPath<TileBase>("/Assets/Tiles/shot_test");
 
-        NPCsManager.defTeam.Add(this);
+        NPCsManager.JoinTeam<Structure>(this);
 
         StartCoroutine("delayedStart");
 
-        TilemapsManager.TilemapTerrain.SetTile(TilemapsManager.TilemapTerrain.WorldToCell(transform.position), ground); // чтоб все строения визуально были на одной высоте
-
+        // чтоб все строения визуально были на одной высоте
+        TilemapsManager.TilemapTerrain.SetTile(TilemapsManager.TilemapTerrain.WorldToCell(transform.position), ground); 
     }
 
 

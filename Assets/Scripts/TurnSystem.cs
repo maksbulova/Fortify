@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TurnSystem : MonoBehaviour
 {
     private NPCsManager npcs;
-    public Button nextTurnButton;
+    [SerializeField] private Button nextTurnButton;
 
     private enum TurnPhases
     {

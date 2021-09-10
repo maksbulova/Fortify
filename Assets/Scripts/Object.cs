@@ -5,34 +5,45 @@ using static General;
 
 public abstract class Object : MonoBehaviour, IDamageable
 {
-    public TerrainTile currentTile;
+    protected TerrainTile currentTile;
 
     [Header("Параметры юнита")]
-    [Tooltip("здоровье"), Range(1, 10)]
-    public int health;
-    [Tooltip("количество выстрелов за ход"), Range(1, 10)]
-    public int rate; // TODO приравнять к HP
-    [Tooltip("чем выше тем сложнее пробить"), Range(0, 10)]
-    public int armor;
-    [Tooltip("чем выше тем сложнее попасть"), Range(-10, 10)]
-    public int cover;
-    [Tooltip("чем выше тем вероятнее выбраться"), Range(-10, 10)]
-    public int mobility;
-    [Tooltip("урон за каждого соладта (хп) в отряде"), Range(1, 5)]
-    public float meleeDmg;
-    [Tooltip("Урон наносимый за 1 попадание (1 пуля = 1 труп) "), Range(1, 10)]
-    public int shotDamage;
-    public int armorPiercing;
+    [Tooltip("здоровье"), SerializeField, Range(1, 10)]
+    protected int health;
+    [Tooltip("количество выстрелов за ход"), SerializeField, Range(1, 10)]
+    protected int fireRate; // TODO приравнять к HP
+    [Tooltip("чем выше тем сложнее пробить"), SerializeField, Range(0, 10)]
+    protected int armor;
+    [Tooltip("чем выше тем сложнее попасть"), SerializeField, Range(-10, 10)]
+    protected int cover;
+    [Tooltip("чем выше тем вероятнее выбраться"), SerializeField, Range(-10, 10)]
+    protected int mobility;
+    [Tooltip("урон за каждого соладта (хп) в отряде"), SerializeField, Range(1, 5)]
+    protected float meleeDmg;
+    [Tooltip("Урон наносимый за 1 попадание (1 пуля = 1 труп) "), SerializeField, Range(1, 10)]
+    protected int shotDamage;
+    protected int armorPiercing;
     [Tooltip("Минимальная и максимальная дальность стрельбы (включительно)")]
-    [Range(1, 10)] public int maxRange;
-    [Range(1, 10)] public int minRange = 1;
+    [Range(1, 10)] protected int maxRange;
+    [Range(1, 10)] protected int minRange = 1;
     //Если подавление 0.5, то противник будет прижат только при одновременном огне с двух позиций
-    [Tooltip("Эффективность подавления"), Range(0, 5)]
-    public float suppression;
-    [Tooltip("Влияет противоположно укрытию"), Range(-3, 3)]
-    public int accuracy;
+    [Tooltip("Эффективность подавления"), SerializeField, Range(0, 5)]
+    protected float suppression;
+    [Tooltip("Влияет противоположно укрытию"), SerializeField, Range(-3, 3)]
+    protected int accuracy;
 
 
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+        set
+        {
+            health = value;
+        }
+    }
 
     public int Cover
     {
@@ -59,6 +70,7 @@ public abstract class Object : MonoBehaviour, IDamageable
     public virtual IEnumerator delayedStart()  // надо подождать пока создастся земля, чтоб было к чему обращаться
     {
         yield return new WaitForSeconds(0.1f);
+
         AttachTerrainTile();
     }
 
@@ -68,15 +80,9 @@ public abstract class Object : MonoBehaviour, IDamageable
     protected abstract void Death();
 
 
-    public void AttachTerrainTile(TerrainTile tile = null)     // привязать переданный тайл к текущему объекту, а к тайлу объект
+    // привязать переданный тайл к текущему объекту, а к тайлу объект
+    public void AttachTerrainTile(TerrainTile tile = null)
     {
-        /*
-        if (tile == null)
-        {
-            tile = GetTerrain(gameObject.transform.position);
-        }
-        */
-        
         tile = tile ?? GetTerrain(gameObject.transform.position);
 
         currentTile = tile;
@@ -89,7 +95,6 @@ public abstract class Object : MonoBehaviour, IDamageable
         {
             tile.currentStructure = this as Structure;
         }
-
 
         // TODO для случая если тайла нет
     }

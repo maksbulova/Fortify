@@ -47,6 +47,6 @@ public class Card : MonoBehaviour
 
     private void CreateObject()
     {
-        TilemapsManager.TilemapStructure.SetTile(TilemapsManager.TilemapStructure.WorldToCell(transform.position), Prefab.GetComponent<Structure>().tileImg);   // TODO разная механика создания юнита и структуры
+        // TilemapsManager.TilemapStructure.SetTile(TilemapsManager.TilemapStructure.WorldToCell(transform.position), Prefab.GetComponent<Structure>().structureTile);   // TODO разная механика создания юнита и структуры
     }
 }
