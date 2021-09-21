@@ -6,13 +6,13 @@ public static class General
 {
     // TODO подкоректировать под перспективу (сейчас перспектива это деление на два )
     public static Vector3 up = Vector3.up * 0.5f;
-    public static Vector3 upleft = Vector3.up * 0.25f + Vector3.left * 0.75f;
-    public static Vector3 upright = Vector3.up * 0.25f + Vector3.right * 0.75f;
+    public static Vector3 upLeft = Vector3.up * 0.25f + Vector3.left * 0.75f;
+    public static Vector3 upRight = Vector3.up * 0.25f + Vector3.right * 0.75f;
     public static Vector3 down = Vector3.down * 0.5f;
-    public static Vector3 downleft = Vector3.down * 0.25f + Vector3.left * 0.75f;
-    public static Vector3 downright = Vector3.down * 0.25f + Vector3.right * 0.75f;
+    public static Vector3 downLeft = Vector3.down * 0.25f + Vector3.left * 0.75f;
+    public static Vector3 downRight = Vector3.down * 0.25f + Vector3.right * 0.75f;
 
-    public static List<Vector3> allDirections = new List<Vector3>() { up, upleft, upright, down, downleft, downright };
+    public static List<Vector3> allDirections = new List<Vector3>() { up, upLeft, upRight, down, downLeft, downRight };
 
 
     public static bool DiceCheck(float basic = 5, float modifier = 0, float max = 10)

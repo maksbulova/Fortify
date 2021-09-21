@@ -16,15 +16,6 @@ public class Card : MonoBehaviour
         MainCamera = Camera.allCameras[0];
     }
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 
     private void OnMouseDown()
     {

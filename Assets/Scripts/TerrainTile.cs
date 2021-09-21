@@ -25,20 +25,15 @@ public class TerrainTile : MonoBehaviour, IDamageable
     }
 
 
-    private void OnMouseDown()
-    {
-        //Debug.Log(object_here);
-    }
-
-    public void TakeHit(DamageType damageType, float damageAmount, float accuracy, float piercing)
+    public void TakeHit(DamageType damageType, float damageAmount, float accuracy, float piercing, float suppression)
     {
         if (currentUnit != null)
         {
-            currentUnit.TakeHit(damageType, damageAmount, accuracy, piercing);
+            currentUnit.TakeHit(damageType, damageAmount, accuracy: 0, piercing, suppression);
         }
         else if (currentStructure != null)
         {
-            currentStructure.TakeHit(damageType, damageAmount, accuracy: 0, piercing);
+            currentStructure.TakeHit(damageType, damageAmount, accuracy: 0, piercing, suppression);
         }
 
         TakeDamage(damageType, damageAmount);

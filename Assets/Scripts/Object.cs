@@ -14,7 +14,7 @@ public abstract class Object : MonoBehaviour, IDamageable
     protected float fireRate;
     [SerializeField, Range(0, 10), Tooltip("чем выше тем сложнее пробить")]
     protected int armor;
-    [SerializeField, Range(-10, 10), Tooltip("чем выше тем сложнее попасть")]
+    [SerializeField, Range(-10, 10), Tooltip("Укрытие и маскировка. Чем выше тем сложнее попасть")]
     protected int cover;
     [SerializeField, Range(-10, 10), Tooltip("чем выше тем вероятнее выбраться")]
     protected int mobility;
@@ -28,10 +28,11 @@ public abstract class Object : MonoBehaviour, IDamageable
     [Range(1, 10)] protected int minRange = 1;
     //Если подавление 0.5, то противник будет прижат только при одновременном огне с двух позиций
     [SerializeField, Range(0, 5), Tooltip("Эффективность подавления")]
-    protected float suppression;
+    protected float suppressionEfficiency;
     [SerializeField, Range(-3, 3), Tooltip("Влияет противоположно укрытию")]
     protected int accuracy;
 
+    private float suppression;
 
     public int Health
     {
@@ -49,7 +50,7 @@ public abstract class Object : MonoBehaviour, IDamageable
     {
         get
         {
-            return this.cover + currentTile.cover;
+            return this.cover + currentTile.cover + Mathf.FloorToInt(suppression);
         }
     }
 
@@ -58,6 +59,22 @@ public abstract class Object : MonoBehaviour, IDamageable
         get
         {
             return Mathf.FloorToInt(fireRate * Health);
+        }
+    }
+
+    protected int Accuracy
+    {
+        get
+        {
+            return accuracy - Mathf.FloorToInt(suppression);
+        }
+    }
+
+    protected int Mobility
+    {
+        get
+        {
+            return mobility - Mathf.FloorToInt(suppression);
         }
     }
 
@@ -75,7 +92,7 @@ public abstract class Object : MonoBehaviour, IDamageable
 
 
 
-    public virtual IEnumerator delayedStart()  // надо подождать пока создастся земля, чтоб было к чему обращаться
+    public virtual IEnumerator DelayedStart()  // надо подождать пока создастся земля, чтоб было к чему обращаться
     {
         yield return new WaitForSeconds(0.1f);
 
@@ -91,7 +108,10 @@ public abstract class Object : MonoBehaviour, IDamageable
     // привязать переданный тайл к текущему объекту, а к тайлу объект
     public void AttachTerrainTile(TerrainTile tile = null)
     {
-        tile = tile ?? GetTerrain(gameObject.transform.position);
+        if (tile == null)
+        {
+            tile = GetTerrain(gameObject.transform.position);
+        }
 
         currentTile = tile;
 
@@ -121,7 +141,7 @@ public abstract class Object : MonoBehaviour, IDamageable
         currentTile = null;
     }
 
-    public void TakeHit(DamageType damageType, float damageAmount, float accuracy, float piercing)
+    public void TakeHit(DamageType damageType, float damageAmount, float accuracy, float piercing, float suppressionEfficiency)
     {
         float hitModifiers = +accuracy -Cover;
         bool hitted = DiceCheck(modifier: hitModifiers);
@@ -137,6 +157,7 @@ public abstract class Object : MonoBehaviour, IDamageable
             }
         }
 
+        suppression += suppressionEfficiency;
     }
 
     public void TakeDamage(DamageType damageType, float damageAmount)

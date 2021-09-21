@@ -37,7 +37,7 @@ public class Structure : Object
             {
                 int rng = Random.Range(0, enemies.Count);
                 Unit enemy = enemies[rng];
-                enemy.TakeHit(DamageType.kinetic, shotDamage, accuracy, armorPiercing);
+                enemy.TakeHit(DamageType.kinetic, shotDamage, Accuracy, armorPiercing, suppressionEfficiency);
 
                 // if killed
                 if (enemy == null)
@@ -108,7 +108,7 @@ public class Structure : Object
 
         NPCsManager.JoinTeam<Structure>(this);
 
-        StartCoroutine("delayedStart");
+        StartCoroutine(DelayedStart());
 
         // чтоб все строения визуально были на одной высоте
         TilemapsManager.TilemapTerrain.SetTile(TilemapsManager.TilemapTerrain.WorldToCell(transform.position), ground); 

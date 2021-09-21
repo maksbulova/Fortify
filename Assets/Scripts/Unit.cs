@@ -10,8 +10,6 @@ public class Unit : Object
     [Tooltip("сколько тайлов пройдено за ход"), SerializeField, Range(1, 5)]
     private int speed;
 
-    [Space, Header("Технические детали")]
-    private float supression = 0;
     [Tooltip("скорость анимации ходьбы (в секундах)"), SerializeField]
     private float animationSpeed = 1;
 
@@ -20,65 +18,62 @@ public class Unit : Object
     private ParticleSystem Effect; // черновик
 
 
-    private int RateField(TerrainTile tile)    // оценка тайла
+    private bool CheckField(TerrainTile tile, out int tileRating)
     {
-        int Rate = 1; // дефолтный тайл лучше занятого
+        const float coverCoef = 2;
+        tileRating = (int)(tile.cover * coverCoef + tile.mobility);
 
-        if (tile.currentUnit != null)   // занятый тайл оценивает нулем
+        if (tile.currentUnit != null)
         {
-            Rate = 0;
+            return false;
         }
         else if (tile.currentStructure != null)
         {
-            Rate += 5;
-        }
-        else
-        {
-            Rate += tile.cover * 2 + mobility;
+            tileRating *= 2;
         }
 
-        return Rate;
+        return true;
     }
 
 
-    private void Movement()  //  TODO можно оптимизироваь, например не рассматривать занятые тайлы, сразу атаковать структуры
-        // проверка на проходимость, выбор пути, перемещение
+    // проверка на проходимость, выбор пути, перемещение
+    private void MovementTurn()
     {
-        if (DiceCheck(basic: 8, modifier: this.mobility + currentTile.mobility))  // успешная проврка - выбраться
+        if (DiceCheck(basic: 8, modifier: this.Mobility + currentTile.mobility))  // успешная проврка - выбраться
         {
-            // Debug.Log("выбрался");
 
-            StopCoroutine("MoveTo");
+            StopCoroutine(nameof(MoveTo));
 
             transform.position = currentTile.transform.position + Vector3.back; // фикс бага при слишком частой ходьбе
 
             List<TerrainTile> ways = new List<TerrainTile>();   // тайлы нижней полусферы 
 
-            ways.Add(GetTerrain(gameObject.transform.position + downleft));
+            ways.Add(GetTerrain(gameObject.transform.position + downLeft));
             ways.Add(GetTerrain(gameObject.transform.position + down));
-            ways.Add(GetTerrain(gameObject.transform.position + downright));
+            ways.Add(GetTerrain(gameObject.transform.position + downRight));
 
-            List<int> weights = new List<int>(3); 
+            List<int> weights = new List<int>(ways.Count); 
 
             int weightSum = 0;
 
-            for (int i = 0; i < ways.Count; i++)
+            for (int i = 0; i < weights.Count; i++)
             {
-                weights.Add(RateField(ways[i]));
-                weightSum += weights[i];
-            }
+                // TODO проверить отрицательный рейтинг тайлов
+                if (CheckField(ways[i], out int tileRating))
+                {
+                    weights.Add(tileRating);
+                    weightSum += weights[i];
 
+                }
+            }
+            
             if (weights[1] > 0)
             {
                 weights[1] += 2;  // приоритет к движению по прямой
                 weightSum += 2;
             }
 
-            if (weightSum == 0) // если нет доступных путей
-            {
-                supression += 1;
-            }
-            else
+            if (weightSum != 0)
             {
                 TerrainTile tileToMove;
                 int rnd = Random.Range(0, weightSum);
@@ -103,12 +98,13 @@ public class Unit : Object
                 {
                     StartCoroutine(MoveTo(tileToMove));
                 }
+
             }
 
         }
         else
         {
-            // Debug.Log("застрял");
+            // застрял
         }
 
     }
@@ -164,7 +160,7 @@ public class Unit : Object
     {
         SetTag("Unit");
 
-        StartCoroutine("delayedStart");
+        StartCoroutine(DelayedStart());
 
         NPCsManager.JoinTeam<Unit>(this);
     }
@@ -183,13 +179,13 @@ public class Unit : Object
 
     private void OnMouseDown()
     {
-        Movement();
+        MovementTurn();
     }
 
     public override IEnumerator NpcAct()
     {
         yield return new WaitForSeconds(Random.Range(0.0f, 1.0f));
-        Movement();
+        MovementTurn();
 
         //TODO сюда добавить потом стрельбу юнита по структурам
 
