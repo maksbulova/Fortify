@@ -39,72 +39,54 @@ public class Unit : Object
     // проверка на проходимость, выбор пути, перемещение
     private void MovementTurn()
     {
+        // фикс бага при слишком частой ходьбе
+        StopCoroutine(nameof(MoveToTile));
+        transform.position = currentTile.transform.position + Vector3.back;
+
         if (DiceCheck(basic: 8, modifier: this.Mobility + currentTile.mobility))  // успешная проврка - выбраться
         {
+            TerrainTile choosenTile = ChooseTile();
 
-            StopCoroutine(nameof(MoveTo));
-
-            transform.position = currentTile.transform.position + Vector3.back; // фикс бага при слишком частой ходьбе
-
-            List<TerrainTile> ways = new List<TerrainTile>();   // тайлы нижней полусферы 
-
-            ways.Add(GetTerrain(gameObject.transform.position + downLeft));
-            ways.Add(GetTerrain(gameObject.transform.position + down));
-            ways.Add(GetTerrain(gameObject.transform.position + downRight));
-
-            List<int> weights = new List<int>(ways.Count); 
-
-            int weightSum = 0;
-
-            for (int i = 0; i < weights.Count; i++)
-            {
-                // TODO проверить отрицательный рейтинг тайлов
-                if (CheckField(ways[i], out int tileRating))
-                {
-                    weights.Add(tileRating);
-                    weightSum += weights[i];
-
-                }
-            }
-            
-            if (weights[1] > 0)
-            {
-                weights[1] += 2;  // приоритет к движению по прямой
-                weightSum += 2;
-            }
-
-            if (weightSum != 0)
-            {
-                TerrainTile tileToMove;
-                int rnd = Random.Range(0, weightSum);
-                if (rnd < weights[0])
-                {
-                    tileToMove = ways[0];
-                }
-                else if (rnd < weights[0] + weights[1])
-                {
-                    tileToMove = ways[1];
-                }
-                else
-                {
-                    tileToMove = ways[2];
-                }
-
-                if (tileToMove.currentStructure != null)
-                {
-                    MeleeAttack(tileToMove);
-                }
-                else
-                {
-                    StartCoroutine(MoveTo(tileToMove));
-                }
-
-            }
-
+            StartCoroutine(MoveToTile(choosenTile));
         }
         else
         {
             // застрял
+        }
+
+    }
+
+    private TerrainTile ChooseTile()
+    {
+        List<TerrainTile> ways = new List<TerrainTile>();   // тайлы нижней полусферы 
+
+        ways.Add(GetTerrain(gameObject.transform.position + downLeft));
+        ways.Add(GetTerrain(gameObject.transform.position + down));
+        ways.Add(GetTerrain(gameObject.transform.position + downRight));
+
+        List<TerrainTile> possibleWays = new List<TerrainTile>();
+
+        for (int i = 0; i < ways.Count; i++)
+        {
+            if (ways[i].currentStructure != null)
+            {
+                return ways[i];
+            }
+            else if (ways[i].currentUnit == null)
+            {
+                possibleWays.Add(ways[i]);
+            }
+        }
+
+        if (possibleWays.Count != 0)
+        {
+            int rnd = Random.Range(0, possibleWays.Count);
+
+            return possibleWays[rnd];
+        }
+        else
+        {
+            return null;
         }
 
     }
@@ -114,7 +96,7 @@ public class Unit : Object
         return x < 0.5 ? 4 * Mathf.Pow(x, 3) : 1 - Mathf.Pow(-2 * x + 2, 3) / 2;
     }
 
-    private IEnumerator MoveTo(TerrainTile destinationTile)
+    private IEnumerator MoveToTile(TerrainTile destinationTile)
     {
         Vector3 startPos = currentTile.transform.position + Vector3.back;
         Vector3 finishPos = destinationTile.transform.position + Vector3.back;
@@ -124,18 +106,14 @@ public class Unit : Object
 
         GetComponent<SpriteRenderer>().sortingLayerName = "units";
 
-
         for (float t = 0; t <= 1; t += Time.deltaTime / animationSpeed)
         {
             transform.position = Vector3.Lerp(startPos, finishPos, EasingInOut(t));
             yield return new WaitForFixedUpdate();
         }
 
-
         transform.position = finishPos + Vector3.down * 0.001f; // полукостыль для рендера поверх терейна
         GetComponent<SpriteRenderer>().sortingLayerName = "terrain";
-
-
     }
 
     // ход на клетку со структурой, TODO чтобы два юнита могли атаковать одну структуру, но не ходили на одно поле
@@ -151,7 +129,7 @@ public class Unit : Object
 
         if (this.health > 0)
         {
-            StartCoroutine(MoveTo(attackedTile));
+            StartCoroutine(MoveToTile(attackedTile));
         }
     }
     
