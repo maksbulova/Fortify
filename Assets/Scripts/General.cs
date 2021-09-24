@@ -76,7 +76,7 @@ public static class General
     // обратиться к тайлу поля на заданой коорденате
     public static TerrainTile GetTerrain(Vector3 tilePos) 
     {
-
+        // TODO round to cell size to prevent null expection
         tilePos.z = 1.5f;
 
         Ray ray = new Ray(tilePos, Vector3.back);

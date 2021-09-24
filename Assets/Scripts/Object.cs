@@ -91,7 +91,6 @@ public abstract class Object : MonoBehaviour, IDamageable
     }
 
 
-
     public virtual IEnumerator DelayedStart()  // надо подождать пока создастся земля, чтоб было к чему обращаться
     {
         yield return new WaitForSeconds(0.1f);
