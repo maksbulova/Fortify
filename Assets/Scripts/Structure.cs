@@ -100,7 +100,7 @@ public class Structure : Object
     }
 
 
-    void Start()
+    IEnumerator Start()
     {
         SetTag("Structure");
 
@@ -108,7 +108,8 @@ public class Structure : Object
 
         NPCsManager.JoinTeam<Structure>(this);
 
-        StartCoroutine(DelayedStart());
+        yield return null;
+        AttachTerrainTile();
 
         // чтоб все строения визуально были на одной высоте
         TilemapsManager.TilemapTerrain.SetTile(TilemapsManager.TilemapTerrain.WorldToCell(transform.position), ground); 

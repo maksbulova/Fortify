@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TurnSystem : MonoBehaviour
 {
-    private NPCsManager npcs;
+    [SerializeField] private NPCsManager npcsManager;
     [SerializeField] private Button nextTurnButton;
 
     private enum TurnPhases
@@ -20,8 +20,6 @@ public class TurnSystem : MonoBehaviour
 
     private void Start()
     {
-        npcs = gameObject.GetComponent<NPCsManager>();
-
         turnPhase = TurnPhases.defNPC;
         StartCoroutine(GameCycle());
     }
@@ -43,7 +41,7 @@ public class TurnSystem : MonoBehaviour
                 case TurnPhases.defNPC:
                     // стрельба траншей
 
-                    yield return StartCoroutine(npcs.ActAll(def: true));
+                    yield return StartCoroutine(npcsManager.ActAll(def: true));
 
                     turnPhase = TurnPhases.defPlayer;
                     repeat = true;
@@ -61,7 +59,7 @@ public class TurnSystem : MonoBehaviour
                 case TurnPhases.attackNPC:
                     // движение юнитов
 
-                    yield return StartCoroutine(npcs.ActAll(def: false));
+                    yield return StartCoroutine(npcsManager.ActAll(def: false));
 
                     turnPhase = TurnPhases.attackSpawn;
                     repeat = true;
@@ -69,7 +67,8 @@ public class TurnSystem : MonoBehaviour
 
                 case TurnPhases.attackSpawn:
 
-                    // спаун юнитов TODO
+                    unitSpawner.SpawnWave();
+
                     turnPhase = TurnPhases.defNPC;
                     repeat = true;
                     break;
@@ -79,9 +78,6 @@ public class TurnSystem : MonoBehaviour
             }
 
         } while (repeat);
-
-
-
 
 
     }

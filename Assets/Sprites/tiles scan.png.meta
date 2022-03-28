@@ -1,0 +1,762 @@
+fileFormatVersion: 2
+guid: 8fb543b2797167b4f991559be5a8781b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7994643182506164901
+    second: tiles scan_0
+  - first:
+      213: -4386212204245280220
+    second: tiles scan_1
+  - first:
+      213: 7933165021814126679
+    second: tiles scan_2
+  - first:
+      213: 4073009030430096693
+    second: tiles scan_3
+  - first:
+      213: -5804256609297582573
+    second: tiles scan_4
+  - first:
+      213: 6171626419051683497
+    second: tiles scan_5
+  - first:
+      213: -4323135469894787
+    second: tiles scan_6
+  - first:
+      213: 3520101821429103746
+    second: tiles scan_7
+  - first:
+      213: 3178227640098225792
+    second: tiles scan_8
+  - first:
+      213: -212850298468784271
+    second: tiles scan_9
+  - first:
+      213: 6375601789052743726
+    second: tiles scan_10
+  - first:
+      213: 8189045299014619636
+    second: tiles scan_11
+  - first:
+      213: -9056950791626793493
+    second: tiles scan_12
+  - first:
+      213: 7015857070652114550
+    second: tiles scan_13
+  - first:
+      213: 4413828951582460605
+    second: tiles scan_14
+  - first:
+      213: -542529304016458876
+    second: tiles scan_15
+  - first:
+      213: 1086663634520840743
+    second: tiles scan_16
+  - first:
+      213: -595015633628344226
+    second: tiles scan_17
+  - first:
+      213: -3456288519343405074
+    second: tiles scan_18
+  - first:
+      213: -8031035985894451016
+    second: tiles scan_19
+  - first:
+      213: -4935059055521761218
+    second: tiles scan_20
+  - first:
+      213: -3322200951788988687
+    second: tiles scan_21
+  - first:
+      213: 2196077557313753606
+    second: tiles scan_22
+  - first:
+      213: -2205094769277211116
+    second: tiles scan_23
+  - first:
+      213: -4578432010758634613
+    second: tiles scan_24
+  - first:
+      213: 152294274122839611
+    second: tiles scan_26
+  - first:
+      213: -2522103181879794590
+    second: tiles scan_27
+  - first:
+      213: -1241488723096597084
+    second: tiles scan_28
+  - first:
+      213: 5096919270870028068
+    second: tiles scan_29
+  - first:
+      213: 6792007166733856824
+    second: tiles scan_30
+  - first:
+      213: 833151782387867479
+    second: tiles scan_31
+  - first:
+      213: -914337992822171395
+    second: tiles scan_32
+  - first:
+      213: -208169465305130998
+    second: tiles scan_33
+  - first:
+      213: -5621917200581172972
+    second: tiles scan_34
+  - first:
+      213: 8221002110156291858
+    second: tiles scan_35
+  - first:
+      213: -190073126338609964
+    second: tiles scan_36
+  - first:
+      213: 1356314628070628338
+    second: tiles scan_37
+  - first:
+      213: -239930915942711500
+    second: tiles scan_38
+  - first:
+      213: 4321620576053910219
+    second: tiles scan_39
+  - first:
+      213: -5387237096553618014
+    second: tiles scan_40
+  - first:
+      213: -435719450845893934
+    second: tiles scan_41
+  - first:
+      213: 8294790941438482407
+    second: tiles scan_42
+  - first:
+      213: -2907921050519540025
+    second: tiles scan_43
+  - first:
+      213: 3805039071660908415
+    second: tiles scan_44
+  - first:
+      213: 4360408561066186242
+    second: tiles scan_45
+  - first:
+      213: -8520662502588698577
+    second: tiles scan_46
+  - first:
+      213: 6326956730027246642
+    second: tiles scan_47
+  - first:
+      213: 4452975511895064423
+    second: tiles scan_48
+  - first:
+      213: 3365648126063064430
+    second: tiles scan_49
+  - first:
+      213: -8897561102947566568
+    second: tiles scan_50
+  - first:
+      213: 8929236265931865453
+    second: tiles scan_51
+  - first:
+      213: -3982857237369279082
+    second: tiles scan_52
+  - first:
+      213: -8903993755637846474
+    second: tiles scan_53
+  - first:
+      213: 7109157294948619605
+    second: tiles scan_54
+  - first:
+      213: 4610549405016514975
+    second: tiles scan_55
+  - first:
+      213: 1963477522301925234
+    second: tiles scan_56
+  - first:
+      213: 5259364308842410797
+    second: tiles scan_57
+  - first:
+      213: 635202671257003061
+    second: tiles scan_58
+  - first:
+      213: 2057655765475380574
+    second: tiles scan_59
+  - first:
+      213: -7580382217429357828
+    second: tiles scan_60
+  - first:
+      213: -2020166224762660456
+    second: tiles scan_61
+  - first:
+      213: -1450476519585325587
+    second: tiles scan_62
+  - first:
+      213: 827678007325231363
+    second: tiles scan_63
+  - first:
+      213: 1482982624140223007
+    second: tiles scan_64
+  - first:
+      213: 7063365598697778375
+    second: tiles scan_65
+  - first:
+      213: -5257078250854887463
+    second: tiles scan_66
+  - first:
+      213: -6489935536069049704
+    second: tiles scan_67
+  - first:
+      213: 2471570953309373035
+    second: tiles scan_68
+  - first:
+      213: 288538849275287544
+    second: tiles scan_69
+  - first:
+      213: -8017884806009326161
+    second: tiles scan_70
+  - first:
+      213: 2711936717544755852
+    second: tiles scan_71
+  - first:
+      213: -8297547742673202799
+    second: tiles scan_72
+  - first:
+      213: 7957427150017052744
+    second: tiles scan_73
+  - first:
+      213: 7829573265895927375
+    second: tiles scan_74
+  - first:
+      213: 1915269349301439381
+    second: tiles scan_75
+  - first:
+      213: 3592046422386325514
+    second: tiles scan_76
+  - first:
+      213: -8064664762744808893
+    second: tiles scan_77
+  - first:
+      213: -2276554224330116807
+    second: tiles scan_78
+  - first:
+      213: 7732815208828112091
+    second: tiles scan_79
+  - first:
+      213: -2340001354428319431
+    second: tiles scan_80
+  - first:
+      213: 6386627286711530853
+    second: tiles scan_81
+  - first:
+      213: -1659048114143844298
+    second: tiles scan_82
+  - first:
+      213: 7573013749497009285
+    second: tiles scan_83
+  - first:
+      213: -1772407991624237980
+    second: tiles scan_84
+  - first:
+      213: -2116533148330131562
+    second: tiles scan_85
+  - first:
+      213: -2055339046733860928
+    second: tiles scan_86
+  - first:
+      213: -1805597827518678484
+    second: tiles scan_87
+  - first:
+      213: -963030705573197523
+    second: tiles scan_88
+  - first:
+      213: 4363378755890417812
+    second: tiles scan_89
+  - first:
+      213: 2534269989172789962
+    second: tiles scan_90
+  - first:
+      213: 4818792583877551111
+    second: tiles scan_91
+  - first:
+      213: 5930440045395172169
+    second: tiles scan_92
+  - first:
+      213: -2758827073896147557
+    second: tiles scan_93
+  - first:
+      213: -5091285958637516874
+    second: tiles scan_94
+  - first:
+      213: -1353314912450526406
+    second: tiles scan_95
+  - first:
+      213: -1695686279086161555
+    second: tiles scan_96
+  - first:
+      213: -8387559878927241435
+    second: tiles scan_97
+  - first:
+      213: 3766672263749416096
+    second: tiles scan_98
+  - first:
+      213: -4759142956710111552
+    second: tiles scan_99
+  - first:
+      213: 5243464423392236486
+    second: tiles scan_100
+  - first:
+      213: 3426969480373486973
+    second: tiles scan_101
+  - first:
+      213: -186414943008016512
+    second: tiles scan_102
+  - first:
+      213: 9142033584850143990
+    second: tiles scan_103
+  - first:
+      213: 4078535599231405666
+    second: tiles scan_104
+  - first:
+      213: -6244066761883502121
+    second: tiles scan_105
+  - first:
+      213: -6728983162732807253
+    second: tiles scan_106
+  - first:
+      213: -963618786598493338
+    second: tiles scan_107
+  - first:
+      213: -9128056417706662079
+    second: tiles scan_108
+  - first:
+      213: 2858564991051774563
+    second: tiles scan_109
+  - first:
+      213: -1023110718599198035
+    second: tiles scan_110
+  - first:
+      213: 1665617897047534812
+    second: tiles scan_111
+  - first:
+      213: 1835541554150152393
+    second: tiles scan_112
+  - first:
+      213: -217878590083588915
+    second: tiles scan_113
+  - first:
+      213: 753869585975968085
+    second: tiles scan_114
+  - first:
+      213: -5240134418802828588
+    second: tiles scan_115
+  - first:
+      213: -113252629423457342
+    second: tiles scan_116
+  - first:
+      213: -234341819826511724
+    second: tiles scan_117
+  - first:
+      213: 695350700346326740
+    second: tiles scan_118
+  - first:
+      213: 1379218954062538565
+    second: tiles scan_119
+  - first:
+      213: -3482907750133512472
+    second: tiles scan_120
+  - first:
+      213: -4278049273655155117
+    second: tiles scan_121
+  - first:
+      213: -5785677292996706981
+    second: tiles scan_122
+  - first:
+      213: 8901475659417280636
+    second: tiles scan_123
+  - first:
+      213: 2006371500675946761
+    second: tiles scan_124
+  - first:
+      213: 9062303266390128254
+    second: tiles scan_125
+  - first:
+      213: -525403872351227924
+    second: tiles scan_126
+  - first:
+      213: -6848008142932695781
+    second: tiles scan_127
+  - first:
+      213: -5730977913867672231
+    second: tiles scan_128
+  - first:
+      213: -5290273600034039025
+    second: tiles scan_129
+  - first:
+      213: 224895290233296163
+    second: tiles scan_130
+  - first:
+      213: 1184113113056603319
+    second: tiles scan_131
+  - first:
+      213: -3270350331238644269
+    second: tiles scan_132
+  - first:
+      213: 1730674431885412030
+    second: tiles scan_133
+  - first:
+      213: -5410097304008766533
+    second: tiles scan_134
+  - first:
+      213: 2620002598559926056
+    second: tiles scan_135
+  - first:
+      213: -6164182235618700976
+    second: tiles scan_136
+  - first:
+      213: -5216209844658954795
+    second: tiles scan_137
+  - first:
+      213: -1571647003572624207
+    second: tiles scan_138
+  - first:
+      213: 3226986413030370358
+    second: tiles scan_139
+  - first:
+      213: 7774573620225082119
+    second: tiles scan_140
+  - first:
+      213: -8202637593275898788
+    second: tiles scan_141
+  - first:
+      213: -9102985831574884673
+    second: tiles scan_142
+  - first:
+      213: -627615306132957894
+    second: tiles scan_143
+  - first:
+      213: -5280853026811942008
+    second: tiles scan_144
+  - first:
+      213: 9107838038261993210
+    second: tiles scan_145
+  - first:
+      213: 2670137550118412368
+    second: tiles scan_146
+  - first:
+      213: -4800592263508293641
+    second: tiles scan_147
+  - first:
+      213: 5436605338265936186
+    second: tiles scan_148
+  - first:
+      213: 246147801034673706
+    second: tiles scan_149
+  - first:
+      213: -5763508510041840664
+    second: tiles scan_150
+  - first:
+      213: -6464546296035150065
+    second: tiles scan_151
+  - first:
+      213: 6802464048546022589
+    second: tiles scan_152
+  - first:
+      213: -6527137201824713250
+    second: tiles scan_153
+  - first:
+      213: -6100801242521955310
+    second: tiles scan_154
+  - first:
+      213: -5593638482864075375
+    second: tiles scan_155
+  - first:
+      213: 988635507931561268
+    second: tiles scan_156
+  - first:
+      213: -676236519761671660
+    second: tiles scan_157
+  - first:
+      213: -5489874969094438398
+    second: tiles scan_158
+  - first:
+      213: 7189137864237219055
+    second: tiles scan_159
+  - first:
+      213: 1458555070891807648
+    second: tiles scan_160
+  - first:
+      213: -8724136718585037358
+    second: tiles scan_161
+  - first:
+      213: 1489868360589772967
+    second: tiles scan_162
+  - first:
+      213: -8579368676735122926
+    second: tiles scan_163
+  - first:
+      213: -1262819418965477290
+    second: tiles scan_164
+  - first:
+      213: -1934288460180488001
+    second: tiles scan_165
+  - first:
+      213: -2958598853874067451
+    second: tiles scan_166
+  - first:
+      213: 1481245933747754066
+    second: tiles scan_167
+  - first:
+      213: -6642122055980228553
+    second: tiles scan_25
+  - first:
+      213: -6844238288235625423
+    second: tiles scan_168
+  - first:
+      213: 2094901928731338304
+    second: tiles scan_169
+  - first:
+      213: 1722148593691865860
+    second: tiles scan_170
+  - first:
+      213: 3476623046110581103
+    second: tiles scan_171
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 800
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tiles scan_0
+      rect:
+        serializedVersion: 2
+        x: 3227
+        y: 1685
+        width: 794
+        height: 709
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a24747fd9da2fe60800000000000000
+      internalID: 7994643182506164901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiles scan_1
+      rect:
+        serializedVersion: 2
+        x: 5607
+        y: 4432
+        width: 798
+        height: 702
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42a1a784d3b0123c0800000000000000
+      internalID: -4386212204245280220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiles scan_2
+      rect:
+        serializedVersion: 2
+        x: 5606
+        y: 3747
+        width: 797
+        height: 698
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 758f8cd3e83481e60800000000000000
+      internalID: 7933165021814126679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiles scan_3
+      rect:
+        serializedVersion: 2
+        x: 5604
+        y: 3062
+        width: 806
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53d7eb9222c368830800000000000000
+      internalID: 4073009030430096693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiles scan_4
+      rect:
+        serializedVersion: 2
+        x: 5599
+        y: 2378
+        width: 802
+        height: 695
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 316ba99bd53237fa0800000000000000
+      internalID: -5804256609297582573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiles scan_5
+      rect:
+        serializedVersion: 2
+        x: 5597
+        y: 1688
+        width: 802
+        height: 701
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aeddf9878506a550800000000000000
+      internalID: 6171626419051683497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

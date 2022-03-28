@@ -134,13 +134,14 @@ public class Unit : Object
     }
     
 
-    void Start()
+    IEnumerator Start()
     {
         SetTag("Unit");
-
-        StartCoroutine(DelayedStart());
-
         NPCsManager.JoinTeam<Unit>(this);
+
+        yield return null;
+        AttachTerrainTile();
+
     }
 
 

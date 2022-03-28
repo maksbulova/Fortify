@@ -90,6 +90,7 @@ public abstract class Object : MonoBehaviour, IDamageable
         }
     }
 
+<<<<<<< Updated upstream
 
 
     public virtual IEnumerator DelayedStart()  // надо подождать пока создастся земля, чтоб было к чему обращаться
@@ -99,6 +100,8 @@ public abstract class Object : MonoBehaviour, IDamageable
         AttachTerrainTile();
     }
 
+=======
+>>>>>>> Stashed changes
     public abstract IEnumerator NpcAct();
 
 
