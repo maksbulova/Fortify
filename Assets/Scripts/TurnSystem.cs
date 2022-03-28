@@ -8,6 +8,8 @@ public class TurnSystem : MonoBehaviour
     [SerializeField] private NPCsManager npcsManager;
     [SerializeField] private Button nextTurnButton;
 
+    [SerializeField] private UnitSpawner unitSpawner;
+
     private enum TurnPhases
     {
         defNPC,

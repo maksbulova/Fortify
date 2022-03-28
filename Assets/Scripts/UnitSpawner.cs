@@ -1,25 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static General;
 
 public class UnitSpawner : MonoBehaviour
 {
+    const float unitZPos = 0;
+
     [SerializeField]
-<<<<<<< Updated upstream
-    private Unit[] units;
-    
-=======
     private Unit unit;
 
-    [SerializeField] private Transform UnitsContainer;
     [SerializeField] private Transform[] spawnPoints;
     private TerrainTile[] spawnTiles;
-    
 
-    private IEnumerator Start()
+    private void Start()
     {
-        yield return null;
-
         spawnTiles = new TerrainTile[spawnPoints.Length];
 
         for (int i = 0; i < spawnPoints.Length; i++)
@@ -29,11 +24,6 @@ public class UnitSpawner : MonoBehaviour
     }
 
     [ContextMenu("Spawn wave")]
-    public void SpawnWave()
-    {
-        SpawnWave(spawnTiles.Length);
-    }
-
     public void SpawnWave(int spawnAmount)
     {
         List<TerrainTile> avaiableTiles = new List<TerrainTile>();
@@ -66,7 +56,6 @@ public class UnitSpawner : MonoBehaviour
     {
         spawnPosition.z = unitZPos;
 
-        return Instantiate(unit, spawnPosition, Quaternion.identity, UnitsContainer);
+        return Instantiate(unit, spawnPosition, Quaternion.identity);
     }
->>>>>>> Stashed changes
 }
