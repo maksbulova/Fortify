@@ -26,6 +26,12 @@ TextureImporter:
   - first:
       213: -5786659801994881600
     second: terrain tiles_7
+  - first:
+      213: -614412532316060768
+    second: terrain tiles_8
+  - first:
+      213: 5821861745994960094
+    second: terrain tiles_9
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -290,6 +296,48 @@ TextureImporter:
       bones: []
       spriteID: 0c51012b197a1bfa0800000000000000
       internalID: -5786659801994881600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: terrain tiles_8
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 0
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a3c0c1ae0b2977f0800000000000000
+      internalID: -614412532316060768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: terrain tiles_9
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 0
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edc077599686bc050800000000000000
+      internalID: 5821861745994960094
       vertices: []
       indices: 
       edges: []
