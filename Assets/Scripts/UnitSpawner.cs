@@ -36,6 +36,7 @@ public class UnitSpawner : MonoBehaviour
             }
         }
 
+
         spawnAmount = Mathf.Min(spawnAmount, avaiableTiles.Count);
 
         for (int i = 0; i < spawnAmount; i++)

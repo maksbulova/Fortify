@@ -9,6 +9,8 @@ public class TurnSystem : MonoBehaviour
     [SerializeField] private Button nextTurnButton;
 
     [SerializeField] private UnitSpawner unitSpawner;
+    [SerializeField] private int minSpawnAmount;
+    [SerializeField] private int maxSpawnAmount;
 
     private enum TurnPhases
     {
@@ -69,7 +71,8 @@ public class TurnSystem : MonoBehaviour
 
                 case TurnPhases.attackSpawn:
 
-                    unitSpawner.SpawnWave();
+                    int spawnAmount = Random.Range(minSpawnAmount, maxSpawnAmount);
+                    unitSpawner.SpawnWave(spawnAmount);
 
                     turnPhase = TurnPhases.defNPC;
                     repeat = true;
