@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55f747e8af38fbe4d8819f37be6fd5aa, type: 3}
-  m_Name: city test tile
+  m_Name: city tile
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: -6256953621372943029, guid: a02c4b6c46b70144b845358e76eb7087,
     type: 3}

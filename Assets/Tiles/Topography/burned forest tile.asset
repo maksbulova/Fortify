@@ -10,23 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55f747e8af38fbe4d8819f37be6fd5aa, type: 3}
-  m_Name: swamp test tile
+  m_Name: burned forest tile
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 1688043552555995289, guid: a02c4b6c46b70144b845358e76eb7087,
+  m_DefaultSprite: {fileID: 5821861745994960094, guid: a02c4b6c46b70144b845358e76eb7087,
     type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 0
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: 1688043552555995289, guid: a02c4b6c46b70144b845358e76eb7087, type: 3}
-    - {fileID: -5533328756689862823, guid: a02c4b6c46b70144b845358e76eb7087, type: 3}
+    - {fileID: 5821861745994960094, guid: a02c4b6c46b70144b845358e76eb7087, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
     m_Output: 1
     m_ColliderType: 0
-    m_RandomTransform: 4
+    m_RandomTransform: 1
     m_Neighbors: 
     m_NeighborPositions:
     - {x: -1, y: 1, z: 0}

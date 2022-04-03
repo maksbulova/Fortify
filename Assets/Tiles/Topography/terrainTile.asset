@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: terrainTile
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -5814643741899592908, guid: a02c4b6c46b70144b845358e76eb7087,
+  m_Sprite: {fileID: 2570196234474528074, guid: a02c4b6c46b70144b845358e76eb7087,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9490197, g: 0.9215687, b: 0.76470596, a: 1}
   m_Transform:
     e00: 1
     e01: 0
